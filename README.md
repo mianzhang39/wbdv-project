@@ -1,2 +1,2 @@
-CS5610 Project Description : https://docs.google.com/document/d/1ywnqJp36ZeYEDEb3m_nBDMdxSRg3lO1Fc1oHa4GnXbM/edit?ts=6052a12a
+CS5610 Project Description : https://docs.google.com/document/d/e/2PACX-1vRj1OgBTeE4d3yicXTF0jQ51Y_N9JWrsLEw2kz3zhEViXaCXNlY9fzopOkqemY2jlrEpL9oOU_k5UP1/pub
 Team members: Xinyu Zhang, Wenqing Xu, Mian Zhang
