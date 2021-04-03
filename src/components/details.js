@@ -32,7 +32,7 @@ const Details = () => {
             .then(result => setBook(result))
     },[ID])
     // console.log(book)
-    const ISBN13 = book.volumeInfo.industryIdentifiers.map(
+    const ISBN13 = book.volumeInfo.industryIdentifiers && book.volumeInfo.industryIdentifiers.map(
         keys => {
             if (keys.type === "ISBN_13") return keys.identifier
         }
@@ -49,7 +49,7 @@ const Details = () => {
                 </div>
                 <div className="book-info col-xs-8 col-sm-10 hidden-xs">
                     <dt><strong>Authors:</strong>{book.volumeInfo.authors}</dt>
-                    <dt><strong>ISBN-10:</strong>{book.volumeInfo.industryIdentifiers.map(
+                    <dt><strong>ISBN-10:</strong>{book.volumeInfo.industryIdentifiers && book.volumeInfo.industryIdentifiers.map(
                         keys => {
                             if (keys.type === "ISBN_10") return keys.identifier
                         }
