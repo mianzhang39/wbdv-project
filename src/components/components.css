@@ -23,6 +23,11 @@
     padding-bottom: 15px;
 }
 
+.search-card{
+    max-width: 540px;
+    marigin:5px
+}
+
 .img-responsive, .thumbnail a>img, .thumbnail>img {
     display: block;
     max-width: 100%;
