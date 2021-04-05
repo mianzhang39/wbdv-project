@@ -35,18 +35,20 @@ const Home = () => {
                 <div className="col-6">
                     <ul className="nav tabsize">
                         <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" href="/" >Home</a>
+                        </li>
+                        <li className="nav-item">
                             <a className="nav-link active" aria-current="page" href="#" >About us</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Sign up</a>
+                            <a className="nav-link" href="/SignUp">Sign up</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Log in</a>
+                            <a className="nav-link" href="/SignIn">Log in</a>
                         </li>
                     </ul>
                 </div>
             </div>
-
 
 
             <div className="row">
@@ -75,12 +77,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-        // <div>
-        //     <h1>Home</h1>
-        //     <Link to="/search">
-        //         Search
-        //     </Link>
-        // </div>
+
     )
 }
 

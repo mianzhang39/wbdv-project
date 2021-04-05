@@ -22,8 +22,8 @@ const Details = () => {
         },
         saleInfo: {
             retailPrice: {
-            amount: "",
-        },
+                amount: "",
+            },
         },
     })
     const {ID} = useParams()
@@ -32,7 +32,7 @@ const Details = () => {
             .then(result => setBook(result))
     },[ID])
     // console.log(book)
-    const ISBN13 = book.volumeInfo.industryIdentifiers && book.volumeInfo.industryIdentifiers.map(
+    const ISBN13 = book.volumeInfo.industryIdentifiers.map(
         keys => {
             if (keys.type === "ISBN_13") return keys.identifier
         }
@@ -49,7 +49,7 @@ const Details = () => {
                 </div>
                 <div className="book-info col-xs-8 col-sm-10 hidden-xs">
                     <dt><strong>Authors:</strong>{book.volumeInfo.authors}</dt>
-                    <dt><strong>ISBN-10:</strong>{book.volumeInfo.industryIdentifiers && book.volumeInfo.industryIdentifiers.map(
+                    <dt><strong>ISBN-10:</strong>{book.volumeInfo.industryIdentifiers.map(
                         keys => {
                             if (keys.type === "ISBN_10") return keys.identifier
                         }
@@ -60,29 +60,29 @@ const Details = () => {
                     <dt><strong>Total Pages:</strong>{book.volumeInfo.pageCount}</dt>
                 </div>
             </div>
-        <div className="detail-blocks">
-            <div className="RyCxoe" aria-level="3" role="heading">Buy A New One</div>
-            <div>
+            <div className="detail-blocks">
+                <div className="RyCxoe" aria-level="3" role="heading">Buy A New One</div>
+                <div>
+                    <div className="row">
+                        <div className="col-6">
+                            Google Play Books
+                        </div>
+                        <div className="col-4 float-lg-right">
+                            {(book.saleInfo.retailPrice === undefined)? "Currently Not Available" : `${book.saleInfo.retailPrice.amount}$`}
+                        </div>
+                    </div>
+                </div>
                 <div className="row">
-                <div className="col-6">
-                Google Play Books
-                </div>
-                <div className="col-4 float-lg-right">
-                    {(book.saleInfo.retailPrice === undefined)? "Currently Not Available" : `${book.saleInfo.retailPrice.amount}$`}
+                    <div className="col-6">
+                        Buy it on Amazon
+                    </div>
+                    <div className="col-4 float-lg-right">
+                        <a className="btn btn-primary"
+                           href={`https://www.amazon.com/s?k=${ISBN13}&i=stripbooks&linkCode=qs`}
+                           role="button">Search</a>
+                    </div>
                 </div>
             </div>
-            </div>
-            <div className="row">
-                <div className="col-6">
-                Buy it on Amazon
-                     </div>
-                <div className="col-4 float-lg-right">
-                    <a className="btn btn-primary"
-                       href={`https://www.amazon.com/s?k=${ISBN13}&i=stripbooks&linkCode=qs`}
-                       role="button">Search</a>
-                </div>
-        </div>
-        </div>
         </div>
     )
 }
