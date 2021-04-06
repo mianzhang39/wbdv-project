@@ -1,22 +1,11 @@
-import React, {useEffect, useState} from 'react'
-import {Link, useHistory, useParams} from "react-router-dom";
+import React, {useState} from 'react'
+import {useHistory} from "react-router-dom";
 import bookService from "../services/book-service";
 import './homepage.css'
 
 const Home = () => {
-    // const {title} = useParams()
     const [searchTitle, setSearchTitle] = useState("")
-    // const [results, setResults] = useState([])
-
     const history = useHistory()
-    // useEffect(() => {
-    //     setSearchTitle(title)
-    //     if(title) {
-    //         bookService.findBookByTitle(title)
-    //             .then(results => setResults(results.items))
-    //         console.log(results)
-    //     }
-    // }, [title])
 
     return(
 
@@ -50,7 +39,7 @@ const Home = () => {
                 </div>
             </div>
 
-
+            <hr className="horizontal-line"/>
             <div className="row">
                 <label className="col-3 hello-text">
                     Hello,

@@ -35,6 +35,7 @@ const SignUp = () => {
                     </ul>
                 </div>
             </div>
+            <hr/>
 
             <br/>
             <br/>
