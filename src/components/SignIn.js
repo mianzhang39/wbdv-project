@@ -34,6 +34,7 @@ const SignIn = () => {
                     </ul>
                 </div>
             </div>
+            <hr/>
 
         <br/>
         <br/>

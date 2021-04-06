@@ -7,7 +7,7 @@ const Search = () => {
     const {title} = useParams()
     const [searchTitle, setSearchTitle] = useState("")
     const [results, setResults] = useState([])
-    // const [authors, setAuthors] = useState([])
+    const [authors, setAuthors] = useState([])
 
     const history = useHistory()
     useEffect(() => {
@@ -71,18 +71,7 @@ const Search = () => {
                     </ul>
                 </div>
             </div>
-
-            {/*<input*/}
-            {/*    onChange={(event) => {*/}
-            {/*        setSearchTitle(event.target.value)*/}
-            {/*    }}*/}
-            {/*    className="form-control"*/}
-            {/*    value={searchTitle}/>*/}
-            {/*<button*/}
-            {/*    onClick={() => {history.push(`/search/${searchTitle}`)}}*/}
-            {/*    className="btn btn-primary btn-block">*/}
-            {/*    Search*/}
-            {/*</button>*/}
+            <br className="horizontal-line"/>
 
             <div id = "search-results-list" className="container">
 
