@@ -40,13 +40,13 @@
 .hello-text{
     font-size: 48px;
     padding-left: 400px;
-    padding-top: 202px;
+    padding-top: 75px;
     font-family: "Gill Sans", sans-serif
 }
 
 .search-bar{
     padding-left: 100px;
-    padding-top: 215px;
+    padding-top: 85px;
     border-radius: 2em;
     margin: 0 auto;
     font-family: "Gill Sans", sans-serif
@@ -54,7 +54,7 @@
 
 .search-button{
     padding-left: 85px;
-    padding-top: 215px;
+    padding-top: 85px;
     font-family: "Gill Sans", sans-serif
 }
 
