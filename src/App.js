@@ -1,20 +1,14 @@
 import Search from "./components/search";
-import Details from "./components/details";
 import {BrowserRouter, Route} from "react-router-dom";
-import Home from "./components/Home";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import Homepage from "./components/homepage/homepage";
+import Details from "./components/details/details";
 
 function App() {
     return (
         <div className="container-fluid">
             <BrowserRouter>
-                <Route
-                    exact={true}
-                    path={["/"]}>
-                    <Home/>
-                </Route>
-
                 <Route
                     exact={true}
                     path={["/SignIn"]}>
@@ -29,14 +23,22 @@ function App() {
 
                 <Route
                     exact={true}
-                    path={["/search", "/search/:title"]}>
-                    <Search/>
+                    path={["/", "/homepage/:role"]}>
+                    <Homepage/>
                 </Route>
+
                 <Route
                     exact={true}
-                    path={["/details/:ID"]}>
+                    path={["/search", "/:role/search/:title"]}>
+                    <Search/>
+                </Route>
+
+                <Route
+                    exact={true}
+                    path={["/:role/details/:ID"]}>
                     <Details/>
                 </Route>
+
             </BrowserRouter>
         </div>
     );
