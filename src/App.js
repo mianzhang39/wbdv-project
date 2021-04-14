@@ -4,11 +4,34 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Homepage from "./components/homepage/homepage";
 import Details from "./components/details/details";
+import Home from './components/homepage/linktohomepage';
+import PrivateProfile from "./components/profile/privateProfile";
+import PublicProfile from "./components/profile/publicProfile";
 
 function App() {
     return (
         <div className="container-fluid">
             <BrowserRouter>
+                <Route
+                    exact={true}
+                    path={'/'}
+                    component={Home}
+                    ></Route>
+
+
+
+                <Route
+                    exact={true}
+                    path={["/privateProfile"]}>
+                    <PrivateProfile/>
+                </Route>
+                <Route
+                    exact={true}
+                    path={'/publicProfile'}>
+                    <PublicProfile/>
+                </Route>
+
+
                 <Route
                     exact={true}
                     path={["/SignIn"]}>
@@ -21,9 +44,17 @@ function App() {
                     <SignUp/>
                 </Route>
 
+
+
                 <Route
                     exact={true}
-                    path={["/", "/homepage/:role"]}>
+                    path={"/homepage"}>
+                    <Homepage/>
+                </Route>
+
+                <Route
+                    exact={true}
+                    path={["/homepage", "/homepage/:role"]}>
                     <Homepage/>
                 </Route>
 
