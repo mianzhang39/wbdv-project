@@ -10,7 +10,7 @@ const Navigator = () => {
             <div className="col-6">
                 <ul className="nav tabsize">
                     <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" href="/" >Home</a>
+                        <a className="nav-link active" aria-current="page" href="/homepage" >Home</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link active" aria-current="page" href="#" >About us</a>
