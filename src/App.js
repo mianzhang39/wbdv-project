@@ -7,6 +7,8 @@ import Details from "./components/details/details";
 import Home from './components/homepage/linktohomepage';
 import PrivateProfile from "./components/profile/privateProfile";
 import PublicProfile from "./components/profile/publicProfile";
+import SellBooks from "./components/details/sell-books";
+import LikeList from "./components/details/likes-list";
 
 function App() {
     return (
@@ -18,29 +20,27 @@ function App() {
                     component={Home}
                     ></Route>
 
-
-
                 <Route
                     exact={true}
-                    path={["/privateProfile"]}>
+                    path={["/:role/profile"]}>
                     <PrivateProfile/>
                 </Route>
                 <Route
                     exact={true}
-                    path={'/publicProfile'}>
+                    path={'/public/profile'}>
                     <PublicProfile/>
                 </Route>
 
 
                 <Route
                     exact={true}
-                    path={["/SignIn"]}>
+                    path={["/signin"]}>
                     <SignIn/>
                 </Route>
 
                 <Route
                     exact={true}
-                    path={["/SignUp"]}>
+                    path={["/signup"]}>
                     <SignUp/>
                 </Route>
 
@@ -68,6 +68,18 @@ function App() {
                     exact={true}
                     path={["/:role/details/:ID"]}>
                     <Details/>
+                </Route>
+
+                <Route
+                    exact={true}
+                    path={["/:role/details/:ID/sell"]}>
+                    <SellBooks/>
+                </Route>
+
+                <Route
+                    exact={true}
+                    path={["/:ID/likes"]}>
+                    <LikeList/>
                 </Route>
 
             </BrowserRouter>

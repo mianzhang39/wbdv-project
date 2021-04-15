@@ -1,9 +1,11 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import './details.css'
 
 
 const UserComments = () => {
+    const {role} = useParams()
+    const history = useHistory()
     return(
         <>
                 <label className="RyCxoe"
@@ -13,7 +15,7 @@ const UserComments = () => {
                 </label>
 
                 <div className="temp">
-                    <Link><label>Simon Simmons</label></Link> <label>:Wow! I like it!</label>
+                    <Link to={"/public/profile"}><label>Zoey</label></Link> <label>:Wow! I like it!</label>
                 </div>
 
                 <label className="RyCxoe"
@@ -26,7 +28,22 @@ const UserComments = () => {
 
                     </textarea>
                 <br/>
-                <button className='float-right btn btn-primary '> Submit </button>
+
+                {(role == "buyer" || role == "seller") &&
+                <button
+                    className='float-right btn btn-primary '
+                    onClick={() => {alert("Thank you for your sharing")}}>
+                    Submit
+                </button>}
+
+                {role == "guest" &&
+                <button
+                    className='float-right btn btn-primary '
+                    onClick={() => {
+                        alert("You haven't registered yet")
+                        history.push("/signup")}}>
+                    Submit
+                </button> }
         </>
     )
 

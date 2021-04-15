@@ -59,20 +59,20 @@ const SignIn = () => {
                                     <button className="btn btn-primary btn-lg"
                                             id="signinBtn"
                                             onClick={() => {
-                                                history.push(`/homepage/${role}`)
+                                                history.push(`/${role}/profile`)
                                             }}>
 
                                         Sign in
                                     </button>
 
-                                <button className="btn btn-primary btn-lg float-right"
-                                        id="profile_Btn"
-                                        onClick={() => {
-                                            history.push(`/homepage/${role}/profile`)
-                                        }}>
+                                {/*<button className="btn btn-primary btn-lg float-right"*/}
+                                {/*        id="profile_Btn"*/}
+                                {/*        onClick={() => {*/}
+                                {/*            history.push(`/${role}/profile`)*/}
+                                {/*        }}>*/}
 
-                                    Profile
-                                </button>
+                                {/*    Profile*/}
+                                {/*</button>*/}
 
                             </div>
                         </div>
