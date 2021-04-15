@@ -65,17 +65,10 @@ const SignUp = () => {
                                 <a href="#" className="float-right">Cancel</a>
                             </div>
 
-
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
-
-
-
         </div>
 
     )

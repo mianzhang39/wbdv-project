@@ -16,7 +16,7 @@ const BuyUsedBooks = () => {
                         <h4 className="col-title">Sellers:</h4>
                     </div>
                     <div className="col-4 float-lg-right">
-                        <Link><label>each seller's link</label></Link>
+                        <Link to={"/public/profile"}> <label> Zoey --- $20</label></Link>
                     </div>
                 </div>
             </div>

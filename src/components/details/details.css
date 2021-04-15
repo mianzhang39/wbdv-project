@@ -58,3 +58,26 @@
 .book-info{
     padding-top: 100px;
 }
+
+.sell-text{
+    padding-top: 100px;
+    padding-left: 300px;
+    font-size: 30px;
+}
+
+.sell-input{
+    margin-left: 10px;
+    margin-top: 100px;
+}
+
+.sell-button{
+    margin-left: 100px;
+    margin-left: 300px;
+}
+
+.like-list{
+    font-size: 30px;
+    padding-left: 500px;
+    padding-top: 75px;
+    font-family: "Gill Sans", sans-serif
+}

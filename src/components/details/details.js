@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import bookService from '../../services/book-service'
 import "./details.css"
 import '../components.css'
@@ -7,6 +7,7 @@ import BasicComponentsWithSearchBar from "../logo-slogan-navigator/basic-compone
 import BuyNewBooks from "./new-books-link";
 import UserComments from "./user-comments";
 import BuyUsedBooks from "./used-books-link";
+import UserLikes from "./user-likes";
 
 
 const Details = () => {
@@ -81,15 +82,17 @@ const Details = () => {
                                                     aria-level="3"
                                                     role="heading">
                             I want to sell it!
-                            <button  className='float-right btn btn-primary '>
+                            <Link to={`/${role}/details/${ID}/sell`} ><button  className='float-right btn btn-primary '>
                                 Sell
-                            </button>
+                            </button></Link>
+
                         </label>}
                         <br/>
                         <BuyNewBooks/>
                         <br/>
+                        <UserLikes/>
+                        <br/>
                         <UserComments/>
-
                     </div>
                 </section>
             </div>
