@@ -22,7 +22,7 @@ function App() {
 
                 <Route
                     exact={true}
-                    path={["/:role/profile"]}>
+                    path={["/profile"]}>
                     <PrivateProfile/>
                 </Route>
                 <Route

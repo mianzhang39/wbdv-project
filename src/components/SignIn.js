@@ -1,11 +1,25 @@
 import React, {useState} from 'react'
-import {useHistory, useParams} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import BasicComponentsWithoutSearchBar from "./logo-slogan-navigator/basic-components-without-search-bar";
+import userService from "../services/user/users-service"
 
 
 const SignIn = () => {
-    const [role, setRole] = useState("guest")
+    const [credentials, setCredentials] = useState({username: '', password: ''})
     const history = useHistory()
+    const login = () => {
+        userService.login(credentials)
+            .then((user) => {
+                console.log(user)
+                if(user === 0) {
+                    alert("login failed, try again")
+                } else {
+                    history.push("/profile")
+                }
+            })
+        // history.push("/profile")
+    }
+
     return(
         <div className="bg-pic">
             <BasicComponentsWithoutSearchBar/>
@@ -20,7 +34,9 @@ const SignIn = () => {
                     <label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
                     <div className="col-sm-10">
                         <input className="form-control"
-                               id="username"  placeholder="please enter your username"/>
+                               id="username"
+                               onChange={(e) => {setCredentials({...credentials, username: e.target.value})}}
+                               placeholder="please enter your username"/>
                     </div>
                 </div>
 
@@ -28,39 +44,39 @@ const SignIn = () => {
                     <label htmlFor="password" className="col-sm-2 col-form-label">Password</label>
                     <div className="col-sm-10">
                         <input type="password" className="form-control"
-                               id="password" placeholder="please enter your password"/>
+                               id="password" placeholder="please enter your password"
+                               onChange={(e) => {setCredentials({...credentials, password: e.target.value})}}
+                        />
                     </div>
                 </div>
 
                 <div className="mb-3 row">
                     <label htmlFor='signinBtn' className="col-sm-2 col-form-label"></label>
                     <div className="col-sm-10">
-                        <a href="#">
+                    {/*    <a href="#">*/}
 
-                            <label>
-                                <input
-                                    onClick={() => {setRole('buyer')}}
-                                    type="radio"
-                                    name='1'
-                                />buyer
-                            </label>
-                            <label className="float-right">
-                                <input
-                                    onClick={() => {setRole('seller')}}
-                                    type="radio"
-                                    name='1'
-                                />seller
-                            </label>
-                        </a>
+                    {/*        <label>*/}
+                    {/*            <input*/}
+                    {/*                onClick={() => {setRole('buyer')}}*/}
+                    {/*                type="radio"*/}
+                    {/*                name='1'*/}
+                    {/*            />buyer*/}
+                    {/*        </label>*/}
+                    {/*        <label className="float-right">*/}
+                    {/*            <input*/}
+                    {/*                onClick={() => {setRole('seller')}}*/}
+                    {/*                type="radio"*/}
+                    {/*                name='1'*/}
+                    {/*            />seller*/}
+                    {/*        </label>*/}
+                    {/*    </a>*/}
 
                         <div className="row">
                             <div className="col-12">
 
                                     <button className="btn btn-primary btn-lg"
                                             id="signinBtn"
-                                            onClick={() => {
-                                                history.push(`/${role}/profile`)
-                                            }}>
+                                            onClick={login}>
 
                                         Sign in
                                     </button>
