@@ -32,9 +32,33 @@ const register = (credentials) => {
         .then(response => response.json())
 }
 
+const findUserByName = (name) => {
+    return fetch(`${USER_API}/${name}`)
+        .then(response => response.json())
+}
+
+const updateUser = (updated) => {
+    return fetch(`${USER_API}/profile`, {
+        method: "PUT",
+        credentials: "include",
+        body: JSON.stringify(updated),
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+// const clickFollow = (userA,userB) =>{
+//     return fetch(`${USER_API}/${userA}/${userB}`, {
+//         method: "POST",
+//         credentials: "include"
+//     })
+//         .then(response => response.json())
+// }
+
 const logout = () => {}
 
 
 export default {
-    register, login, logout, profile
+    register, login, logout, profile,findUserByName,updateUser
 }

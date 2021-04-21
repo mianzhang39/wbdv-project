@@ -12,25 +12,62 @@ import PublicProfile from './publicProfile'
 const PrivateProfile = () => {
     const [signIn,setSignIn]=useState({});
     const {userId}= useParams();
-    const [user,setUser]=useState({});
-    const [otherUser,setOtherUser]=useState({});
-    useEffect(_=> {
-        fetch('https://localhost:3000/api/users/profile', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(response => response.json())
-            .then(currentUser => setUser(currentUser))
+    console.log(userId)
+    const [user,setUser]=useState({
+        username: "",
+        password: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        address: "",
+        city: "",
+        country: "",
+        postalCode: "",
+        aboutMe: "...",
+        following: [],
+        followedBy: [],
+        liked: [],
+        comments: [],
+        sold: []
+    });
+    const [otherUser,setOtherUser]=useState({
+        username: "",
+        password: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        address: "",
+        city: "",
+        country: "",
+        postalCode: "",
+        aboutMe: "",
+        following: [],
+        followedBy: [],
+        liked: [],
+        comments: [],
+        sold: []
+    });
+    useEffect(() => {
+        const interval=setInterval(()=>{
+            userService.profile()
+            .then(current => {
+                userService.findUserByName(current.username)
+                    .then(currentUser => {
+                        setUser(currentUser)
+                        if (userId) {
+                            // console.log("have userId")
+                            userService.findUserByName(userId)
+                                .then(response => setOtherUser(response))
+                        }
+                    })
 
-        if (userId) {
-            fetch('http://localhost:3000/api/users.profile/${userId}')
-                .then(response=>response.json())
-                .then(otherUser=>setOtherUser(otherUser))
-        }
+            })
+        },5000)
+        return()=>clearInterval(interval)
 
-    })
+
+    },[])
+
 
 
 
@@ -63,24 +100,46 @@ const PrivateProfile = () => {
 
                                 <div className="text-center">
                                     <h3>
-                                        Zoey<span className="font-weight-light"></span>
+                                        {!userId &&
+                                            user.username
+                                        }
+                                        {userId &&
+                                            otherUser.username}<span className="font-weight-light"></span>
                                     </h3>
-                                    <div className="h5 font-weight-300">
-                                        <i className="ni location_pin mr-2"></i>Boston
-                                    </div>
+
                                     <div className="col">
                                         <div className="row md-3">
                                             <div className='col-3'>
-                                                <h6>22 followers</h6>
+                                                <h6>
+                                                    {!userId &&
+                                                    user.followedBy.length
+                                                    }
+                                                    {userId &&
+                                                        otherUser.followedBy.length} followers</h6>
                                             </div>
                                             <div className='col-3'>
-                                                <h6>10 following</h6>
+                                                <h6>
+                                                    {!userId &&
+                                                    user.following.length
+                                                    }
+                                                    {userId &&
+                                                        otherUser.following.length} following</h6>
                                             </div>
                                             <div className='col-3'>
-                                                <h6>10 review</h6>
+                                                <h6>
+                                                    {!userId &&
+                                                    user.comments.length
+                                                    }
+                                                    {userId &&
+                                                        otherUser.comments.length} review</h6>
                                             </div>
                                             <div className='col-3'>
-                                                <h6>3 likes</h6>
+                                                <h6>
+                                                    {!userId &&
+                                                    user.liked.length
+                                                    }
+                                                    {userId &&
+                                                        otherUser.liked.length} likes</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -88,18 +147,16 @@ const PrivateProfile = () => {
                                         <p>description</p>
                                         <br/>
                                     </div>
-                                    <div className="d-flex justify-content-between">
-                                        <a href="#" className="btn btn-sm btn-info float-right">Follow</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {
-                        user.id===otherUser.id &&
+                        !userId &&
                         <PrivateProfileEdit/>
                     }
                     {
+                        userId &&
                         <PublicProfile/>
                     }
 

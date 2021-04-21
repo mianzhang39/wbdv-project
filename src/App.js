@@ -23,7 +23,7 @@ function App() {
 
                 <Route
                     exact={true}
-                    path={["/profile"]}>
+                    path={["/profile","/profile/:userId"]}>
                     <PrivateProfile/>
                 </Route>
 
@@ -33,11 +33,6 @@ function App() {
                     <AboutUs/>
                 </Route>
 
-                <Route
-                    exact={true}
-                    path={'/public/profile'}>
-                    <PublicProfile/>
-                </Route>
 
 
                 <Route

@@ -1,10 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './profile.css'
 import '../components.css'
+import userService from "../../services/user/users-service"
 
 const PrivateProfileEdit = () =>{
     const [editing,setEditing]=useState(false)
+    const [cachedItem, setCachedItem] = useState({})
+    const update = () => {
+        userService.updateUser(cachedItem)
+            .then(response => console.log(response))
 
+    }
+    useEffect(() => {
+        userService.profile()
+            .then(currentUser => {
+            userService.findUserByName(currentUser.username)
+                .then(current => setCachedItem(current))
+            })
+
+    },[])
     return (
         <>
 
@@ -32,7 +46,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Username</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="Username" value="Zoey"/>
+                                               value = {cachedItem.username}/>
                                     </div>
                                 </div>
                                 <div className="col-lg-6">
@@ -40,7 +54,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Email address</label>
                                         <input type="email"
                                                className="form-control form-control-alternative"
-                                               value="123@gmail.com"/>
+                                               value={cachedItem.email}/>
 
                                     </div>
                                 </div>
@@ -51,7 +65,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">First name</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="First name" value="Zoey"/>
+                                               placeholder="First name" value={cachedItem.firstName}/>
                                     </div>
                                 </div>
                                 <div className="col-6">
@@ -59,7 +73,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Last name</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="Last name" value="Zhang"/>
+                                               placeholder="Last name" value={cachedItem.lastName}/>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +85,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Address</label>
                                         <input
                                             className="form-control form-control-alternative"
-                                            placeholder="Home Address" value="Boston" type="text"/>
+                                            placeholder="Home Address" value={cachedItem.address} type="text"/>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +95,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">City</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="City" value="Boston"/>
+                                               placeholder="City" value={cachedItem.city}/>
                                     </div>
                                 </div>
                                 <div className="col-4">
@@ -89,7 +103,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Country</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="Country" value="United States"/>
+                                               placeholder="Country" value={cachedItem.country}/>
                                     </div>
                                 </div>
                                 <div className="col-4">
@@ -97,7 +111,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Postal code</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               value="02115"/>
+                                               value={cachedItem.postalCode}/>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +120,9 @@ const PrivateProfileEdit = () =>{
                             <div className="form-group">
                                 <label>About Me</label>
                                 <textarea rows="4" className="form-control form-control-alternative"
-                                          placeholder="A few words about you ...">Book Lover</textarea>
+                                          placeholder="A few words about you ..."
+                                          value={cachedItem.aboutMe}
+                                ></textarea>
                             </div>
 
                         </div>
@@ -124,7 +140,10 @@ const PrivateProfileEdit = () =>{
                                     <h3>My account</h3>
                                 </div>
                                 <div className="col-4 ">
-                                    <i onClick={() => setEditing(false)}
+                                    <i onClick={() => {
+                                        setEditing(false)
+                                        update()
+                                    }}
                                        className="btn btn-sm btn-primary float-right">Save</i>
                                 </div>
                             </div>
@@ -138,7 +157,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Username</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               value="Zoey"/>
+                                               value={cachedItem.username}/>
                                     </div>
                                 </div>
                                 <div className="col-lg-6">
@@ -146,7 +165,7 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Email address</label>
                                         <input type="email"
                                                className="form-control form-control-alternative"
-                                               value="123@gmail.com"/>
+                                               value={cachedItem.email}/>
 
                                     </div>
                                 </div>
@@ -157,7 +176,13 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">First name</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="Zoey" />
+                                                onChange={(e) =>
+                                                    setCachedItem({
+                                                        ...cachedItem,
+                                                        firstName: e.target.value
+                                                    })}
+                                               value={cachedItem.firstName}
+                                        />
                                     </div>
                                 </div>
                                 <div className="col-6">
@@ -165,7 +190,12 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Last name</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="Zhang" />
+                                               onChange={(e) =>
+                                                   setCachedItem({
+                                                       ...cachedItem,
+                                                       lastName: e.target.value
+                                                   })}
+                                               value={cachedItem.lastName} />
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +207,14 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Address</label>
                                         <input
                                             className="form-control form-control-alternative"
-                                            placeholder="Boston" type="text"/>
+                                           type="text"
+                                            onChange={(e) =>
+                                                setCachedItem({
+                                                    ...cachedItem,
+                                                    address: e.target.value
+                                                })}
+                                            value={cachedItem.address}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +224,12 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">City</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="Boston"/>
+                                               onChange={(e) =>
+                                                   setCachedItem({
+                                                       ...cachedItem,
+                                                       city: e.target.value
+                                                   })}
+                                               value={cachedItem.city}/>
                                     </div>
                                 </div>
                                 <div className="col-4">
@@ -195,7 +237,12 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Country</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="United States"/>
+                                               onChange={(e) =>
+                                                   setCachedItem({
+                                                       ...cachedItem,
+                                                       country: e.target.value
+                                                   })}
+                                               value={cachedItem.country}/>
                                     </div>
                                 </div>
                                 <div className="col-4">
@@ -203,7 +250,12 @@ const PrivateProfileEdit = () =>{
                                         <label className="form-control-label">Postal code</label>
                                         <input type="text"
                                                className="form-control form-control-alternative"
-                                               placeholder="02115"/>
+                                               onChange={(e) =>
+                                                   setCachedItem({
+                                                       ...cachedItem,
+                                                       postalCode: e.target.value
+                                                   })}
+                                               value={cachedItem.postalCode}/>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +264,12 @@ const PrivateProfileEdit = () =>{
                             <div className="form-group">
                                 <label>About Me</label>
                                 <textarea rows="4" className="form-control form-control-alternative"
-                                          placeholder="A few words about you ...">Book Lover</textarea>
+                                          onChange={(e) =>
+                                              setCachedItem({
+                                                  ...cachedItem,
+                                                  aboutMe: e.target.value
+                                              })}
+                                          value={cachedItem.aboutMe}>Book Lover</textarea>
                             </div>
 
                         </div>
@@ -224,4 +281,5 @@ const PrivateProfileEdit = () =>{
 
     )
 }
+
 export default PrivateProfileEdit
