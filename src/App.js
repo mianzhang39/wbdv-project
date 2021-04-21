@@ -9,6 +9,7 @@ import PrivateProfile from "./components/profile/privateProfile";
 import PublicProfile from "./components/profile/publicProfile";
 import SellBooks from "./components/details/sell-books";
 import LikeList from "./components/details/likes-list";
+import AboutUs from "./components/logo-slogan-navigator/about-us";
 
 function App() {
     return (
@@ -25,6 +26,13 @@ function App() {
                     path={["/profile"]}>
                     <PrivateProfile/>
                 </Route>
+
+                <Route
+                    exact={true}
+                    path={["/aboutus"]}>
+                    <AboutUs/>
+                </Route>
+
                 <Route
                     exact={true}
                     path={'/public/profile'}>

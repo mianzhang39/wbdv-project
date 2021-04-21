@@ -1,6 +1,7 @@
 import React from "react";
 import './logo-slogan.css'
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+
 
 const Navigator = () => {
     const {role} = useParams()
@@ -21,7 +22,9 @@ const Navigator = () => {
                         <a className="nav-link active" aria-current="page" href={"/homepage/" + transfer(role)}>Home</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" href="#" >About us</a>
+                        <Link to={"/aboutus"}>
+                            <a className="nav-link active" aria-current="page" href="#" >Our Mission</a>
+                        </Link>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/SignUp">Sign up</a>

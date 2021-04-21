@@ -76,3 +76,10 @@
     overflow-y: hidden;
     overflow-x: hidden;
 }
+
+.about-us{
+    font-size: 30px;
+    padding-left: 100px;
+    padding-top: 50px;
+    font-family: "Gill Sans", sans-serif
+}
