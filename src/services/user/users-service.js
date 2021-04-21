@@ -34,6 +34,7 @@ const register = (credentials) => {
 
 const logout = () => {}
 
+
 export default {
     register, login, logout, profile
 }

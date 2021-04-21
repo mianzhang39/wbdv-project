@@ -1,16 +1,46 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useHistory, useParams} from "react-router-dom";
-import BasicComponentsWithoutSearchBar from "../logo-slogan-navigator/basic-components-without-search-bar";
+import SignInSearchBar from "../logo-slogan-navigator/signin_search_bar";
+import BasicComponentsWithSearchBar from "../logo-slogan-navigator/basic-components-with-search-bar";
 import './profile.css'
 import '../components.css'
+import userService from '../../services/user/users-service'
+import PrivateProfileEdit from "./privateProfile_edit";
+import PublicProfile from './publicProfile'
 
 
 const PrivateProfile = () => {
-    const [editing,setEditing]=useState(false)
+    const [signIn,setSignIn]=useState({});
+    const {userId}= useParams();
+    const [user,setUser]=useState({});
+    const [otherUser,setOtherUser]=useState({});
+    useEffect(_=> {
+        fetch('https://localhost:3000/api/users/profile', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(currentUser => setUser(currentUser))
+
+        if (userId) {
+            fetch('http://localhost:3000/api/users.profile/${userId}')
+                .then(response=>response.json())
+                .then(otherUser=>setOtherUser(otherUser))
+        }
+
+    })
+
+
 
     return(
         <div className="bg-pic">
-            <BasicComponentsWithoutSearchBar/>
+            {signIn &&
+                <SignInSearchBar/>}
+            {!signIn &&
+            <BasicComponentsWithSearchBar/>}
+
 
             <hr className="horizontal-line"/>
             <br/>
@@ -41,16 +71,16 @@ const PrivateProfile = () => {
                                     <div className="col">
                                         <div className="row md-3">
                                             <div className='col-3'>
-                                                <h6>22 follwers</h6>
+                                                <h6>22 followers</h6>
                                             </div>
                                             <div className='col-3'>
-                                                <h6>10 follwoing</h6>
+                                                <h6>10 following</h6>
                                             </div>
                                             <div className='col-3'>
                                                 <h6>10 review</h6>
                                             </div>
                                             <div className='col-3'>
-                                                <h6>3 favorites</h6>
+                                                <h6>3 likes</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -59,224 +89,21 @@ const PrivateProfile = () => {
                                         <br/>
                                     </div>
                                     <div className="d-flex justify-content-between">
-                                        <a href="#" className="btn btn-sm btn-info float-right">Message</a>
+                                        <a href="#" className="btn btn-sm btn-info float-right">Follow</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {
+                        user.id===otherUser.id &&
+                        <PrivateProfileEdit/>
+                    }
+                    {
+                        <PublicProfile/>
+                    }
 
-                    {!editing &&
-                        <>
-                    <div className='col-8 padding'>
-                        <div className='card'>
-                            <div className='card-header bg-white'>
-                                <div className='mb-3 row row-padding'>
-                                    <div className='col-8'>
-                                        <h3>My account</h3>
-                                    </div>
-                                    <div className="col-4 ">
-                                        <i onClick={() => setEditing(true)}
-                                           className="btn btn-sm btn-primary float-right">Edit Profile</i>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div className='card-body shadow'>
-                                <h6 className="heading-small text-muted ">User information</h6>
-                                <div className='row row-padding'>
-                                    <div className='col-6'>
-                                        <div className="form-group focused">
-                                            <label className="form-control-label">Username</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="Username" value="Zoey"/>
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <div className="form-group">
-                                            <label className="form-control-label">Email address</label>
-                                            <input type="email"
-                                                   className="form-control form-control-alternative"
-                                                   value="123@gmail.com"/>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='row row-padding'>
-                                    <div className="col-6">
-                                        <div className="form-group">
-                                            <label className="form-control-label">First name</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="First name" value="Zoey"/>
-                                        </div>
-                                    </div>
-                                    <div className="col-6">
-                                        <div className="form-group ">
-                                            <label className="form-control-label">Last name</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="Last name" value="Zhang"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h6 className="heading-small text-muted mb-4">Contact information</h6>
-                                <div className="row row-padding">
-                                    <div className="col-md-12">
-                                        <div className="form-group ">
-                                            <label className="form-control-label">Address</label>
-                                            <input
-                                                className="form-control form-control-alternative"
-                                                placeholder="Home Address" value="Boston" type="text"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row row-padding">
-                                    <div className="col-4">
-                                        <div className="form-group focused">
-                                            <label className="form-control-label">City</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="City" value="Boston"/>
-                                        </div>
-                                    </div>
-                                    <div className="col-4">
-                                        <div className="form-group focused">
-                                            <label className="form-control-label">Country</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="Country" value="United States"/>
-                                        </div>
-                                    </div>
-                                    <div className="col-4">
-                                        <div className="form-group">
-                                            <label className="form-control-label">Postal code</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   value="02115"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h6 className="heading-small text-muted mb-4">About me</h6>
-
-                                <div className="form-group">
-                                    <label>About Me</label>
-                                    <textarea rows="4" className="form-control form-control-alternative"
-                                              placeholder="A few words about you ...">Book Lover</textarea>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                        </>}
-
-                    {editing &&
-                        <>
-                    <div className='col-8 padding'>
-                        <div className='card'>
-                            <div className='card-header bg-white'>
-                                <div className='mb-3 row row-padding'>
-                                    <div className='col-8'>
-                                        <h3>My account</h3>
-                                    </div>
-                                    <div className="col-4 ">
-                                        <i onClick={() => setEditing(false)}
-                                           className="btn btn-sm btn-primary float-right">Save</i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className='card-body shadow'>
-                                <h6 className="heading-small text-muted ">User information</h6>
-                                <div className='row row-padding'>
-                                    <div className='col-6'>
-                                        <div className="form-group focused">
-                                            <label className="form-control-label">Username</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="Zoey"/>
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <div className="form-group">
-                                            <label className="form-control-label">Email address</label>
-                                            <input type="email"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="123@gmail.com"/>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='row row-padding'>
-                                    <div className="col-6">
-                                        <div className="form-group">
-                                            <label className="form-control-label">First name</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="Zoey" />
-                                        </div>
-                                    </div>
-                                    <div className="col-6">
-                                        <div className="form-group ">
-                                            <label className="form-control-label">Last name</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="Zhang" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h6 className="heading-small text-muted mb-4">Contact information</h6>
-                                <div className="row row-padding">
-                                    <div className="col-md-12">
-                                        <div className="form-group ">
-                                            <label className="form-control-label">Address</label>
-                                            <input
-                                                className="form-control form-control-alternative"
-                                                placeholder="Boston" type="text"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row row-padding">
-                                    <div className="col-4">
-                                        <div className="form-group focused">
-                                            <label className="form-control-label">City</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="Boston"/>
-                                        </div>
-                                    </div>
-                                    <div className="col-4">
-                                        <div className="form-group focused">
-                                            <label className="form-control-label">Country</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="United States"/>
-                                        </div>
-                                    </div>
-                                    <div className="col-4">
-                                        <div className="form-group">
-                                            <label className="form-control-label">Postal code</label>
-                                            <input type="text"
-                                                   className="form-control form-control-alternative"
-                                                   placeholder="02115"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h6 className="heading-small text-muted mb-4">About me</h6>
-
-                                <div className="form-group">
-                                    <label>About Me</label>
-                                    <textarea rows="4" className="form-control form-control-alternative"
-                                              placeholder="A few words about you ...">Book Lover</textarea>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                        </>}
 
 
                 </div>
