@@ -1,10 +1,39 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import UpperSearchBar from "./upper-search-bar";
 import Navigator from "./navigator";
 import './logo-slogan.css'
+import userService from "../../services/user/users-service";
+import NavigatorSignIn from "./navigator_signin";
 
 
 const BasicComponentsWithSearchBar = () =>{
+    const [user,setUser]=useState({
+        username: "",
+        password: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        address: "",
+        city: "",
+        country: "",
+        postalCode: "",
+        aboutMe: "...",
+        following: [],
+        followedBy: [],
+        liked: [],
+        comments: [],
+        sold: []
+    });
+    useEffect(() => {
+        const interval=setInterval(()=>{
+            userService.profile()
+                .then(current => {
+                    userService.findUserByName(current.username)
+                        .then(currentUser => {
+                            setUser(currentUser)})
+                })},5000)
+        return()=>clearInterval(interval)
+    },[])
     return(
         <>
             <div className="row">
@@ -17,7 +46,7 @@ const BasicComponentsWithSearchBar = () =>{
                     </div>
                 </div>
             </div>
-            <Navigator/>
+            {(user.role === "buyer" || user.role === "seller") ? <NavigatorSignIn/> : <Navigator/>}
         </>
 
     )

@@ -6,6 +6,12 @@ const UpperSearchBar = () => {
     const [searchTitle, setSearchTitle] = useState("")
     const history = useHistory()
     const {role} = useParams()
+    const transfer = (role) => {
+        if (role == undefined) {
+            role = "guest"
+        }
+        return role
+    }
     return(
         <>
             <div className="col-8 textsearchbar input-group input-group-lg">
@@ -23,7 +29,8 @@ const UpperSearchBar = () => {
             <div className="col-4 textsearchbutton">
                 <button type="button"
                         className="btn btn-outline-primary btn-lg"
-                        onClick={() => {history.push(`/${role}/search/${searchTitle}`)}}>
+                        onClick={() => {history.push(`/search/${searchTitle}`)}}>
+                    {/*onClick={() => {history.push(`/${transfer(role)}/search/${searchTitle}`)}}>*/}
                     Search
                 </button>
             </div>

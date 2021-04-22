@@ -8,9 +8,9 @@ const Search = () => {
     const {title} = useParams()
     const [searchTitle, setSearchTitle] = useState("")
     const [results, setResults] = useState([])
-    const [authors, setAuthors] = useState([])
-    const {role} = useParams()
-    const history = useHistory()
+    // const [authors, setAuthors] = useState([])
+    // const {role} = useParams()
+    // const history = useHistory()
     useEffect(() => {
         setSearchTitle(title)
         if(title) {
@@ -79,44 +79,15 @@ const Search = () => {
                                                 <div className="col-sm text-align-center card-body">
                                                     <a
                                                         className="btn btn-primary btn-info"
-                                                        href={`/${role}/details/${book.id}`}>Learn More</a>
+                                                        href={`/details/${book.id}`}>Learn More</a>
+                                                    {/*href={`/${role}/details/${book.id}`}>Learn More</a>*/}
                                                 </div>
                                             </div>
-
-
                                         </div>
-
-
-
-
                                     </section>
 
-                                    // <div class = "row search-result-item">
-                                    //     <div className="col-md-1 col-xs-2 padd-img">
-                                    //         <a title= {book.volumeInfo.title}
-                                    //            href={`/details/{book.id}`}>
-                                    //             <img className="img-responsive"
-                                    //                  src={pic}/>
-                                    //         </a>
-                                    //     </div>
-                                    //     <div className="col-md-9 col-xs-9 div-o">
-                                    //         <h3><a
-                                    //             title={book.volumeInfo.title}
-                                    //             href={`/details/${book.id}`}>
-                                    //             {book.volumeInfo.title}
-                                    //         </a></h3>
-                                    //         <dl>
-                                    //             <dt><strong>Author:</strong> {authors}</dt>
-                                    //             <dt><strong>Published Date:</strong>{book.volumeInfo.publishedDate}</dt>
-                                    //         </dl>
-                                    //
-                                    //
-                                    //
-                                    //     </div>
-                                    // </div>
-
                                 )
-                            },
+                            }
                         )
                     }
                 </div>

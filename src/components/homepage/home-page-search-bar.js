@@ -25,7 +25,8 @@ const HomepageSearchBar = ({role}) => {
             <div className="col-2 search-button">
                 <button type="button"
                         className="btn btn-outline-primary btn-lg"
-                        onClick={() => {history.push(`/${role}/search/${searchTitle}`)
+                        onClick={() => {history.push(`/search/${searchTitle}`)
+                            // onClick={() => {history.push(`/${role}/search/${searchTitle}`)
                         }}>
                     Search
                 </button>

@@ -264,14 +264,15 @@ const PrivateProfileEdit = () =>{
                             <div className="form-group">
                                 <label>About Me</label>
                                 <textarea rows="4" className="form-control form-control-alternative"
+                                          placeholder="I am a book lover"
                                           onChange={(e) =>
                                               setCachedItem({
                                                   ...cachedItem,
                                                   aboutMe: e.target.value
                                               })}
-                                          value={cachedItem.aboutMe}>Book Lover</textarea>
+                                          value={cachedItem.aboutMe}>
+                                </textarea>
                             </div>
-
                         </div>
                     </div>
                 </div>

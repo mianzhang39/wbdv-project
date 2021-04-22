@@ -17,7 +17,6 @@ const SignIn = () => {
                     history.push("/profile")
                 }
             })
-        // history.push("/profile")
     }
 
     return(
@@ -55,7 +54,7 @@ const SignIn = () => {
                                     className="btn btn-primary btn-block "
                                     type="button"
                                     id="signinBtn"
-                                    onClick={login}>
+                                    onClick={() => {login()}}>
                                 Sign in
                             </button>
                     </div>
@@ -79,13 +78,3 @@ const SignIn = () => {
 }
 
 export default SignIn
-
-
-            {/*<div className="row">*/}
-            {/*    <div className="col-12">*/}
-            {/*        /!*<a href="#" className="ui-corner-left">Forget Password?</a>*!/*/}
-            {/*        <Link to = {"/signup"}>*/}
-            {/*            <a href="#" className="float-right">Sign up</a>*/}
-            {/*        </Link>*/}
-            {/*    </div>*/}
-            {/*</div>*/}

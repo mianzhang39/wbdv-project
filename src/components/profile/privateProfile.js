@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useHistory, useParams} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import SignInSearchBar from "../logo-slogan-navigator/signin_search_bar";
 import BasicComponentsWithSearchBar from "../logo-slogan-navigator/basic-components-with-search-bar";
 import './profile.css'
@@ -59,30 +59,22 @@ const PrivateProfile = () => {
                                 .then(response => setOtherUser(response))
                         }
                     })
-
             })
         },5000)
         return()=>clearInterval(interval)
-
-
     },[])
-
-
-
-
     return(
         <div className="bg-pic">
-            {signIn &&
-                <SignInSearchBar/>}
-            {!signIn &&
-            <BasicComponentsWithSearchBar/>}
-
+            {signIn &&  <SignInSearchBar/>}
+            {!signIn && <BasicComponentsWithSearchBar/>}
+            {/*{currentUser.role*/}
+            {/*<SignInSearchBar/>*/}
 
             <hr className="horizontal-line"/>
             <br/>
             <br/>
 
-            <h1 className=" text-gray welcome-sentence">Hello user, this is your profile page.</h1>
+            <h1 className=" text-gray welcome-sentence">Hello {user.role} {user.username}! This is your profile page.</h1>
             <div className="container-fluid padding">
                 <div className=" mb-3 row ">
                     <div className="col-4">
@@ -111,34 +103,66 @@ const PrivateProfile = () => {
                                             <div className='col-3'>
                                                 <h6>
                                                     {!userId &&
-                                                    user.followedBy.length
+                                                    <Link to={"/followedby"}>
+                                                        {user.followedBy.length}
+                                                    </Link>
                                                     }
                                                     {userId &&
-                                                        otherUser.followedBy.length} followers</h6>
+                                                    <Link to={"/followedby"}>
+                                                        {otherUser.followedBy.length}
+                                                    </Link>
+                                                    }
+                                                    <span>&nbsp;&nbsp;</span>
+                                                    followers
+                                                </h6>
+
                                             </div>
                                             <div className='col-3'>
                                                 <h6>
                                                     {!userId &&
-                                                    user.following.length
+                                                    <Link to={"/following"}>
+                                                        {user.following.length}
+                                                    </Link>
                                                     }
                                                     {userId &&
-                                                        otherUser.following.length} following</h6>
+                                                    <Link to={"/following"}>
+                                                        {otherUser.following.length}
+                                                    </Link>}
+                                                    <span>&nbsp;&nbsp;</span>
+                                                        following
+                                                </h6>
+
                                             </div>
                                             <div className='col-3'>
                                                 <h6>
                                                     {!userId &&
-                                                    user.comments.length
+                                                    <Link to={"/comments"}>
+                                                        {user.comments.length}
+                                                    </Link>
                                                     }
                                                     {userId &&
-                                                        otherUser.comments.length} review</h6>
+                                                    <Link to={"/comments"}>
+                                                        {otherUser.comments.length}
+                                                    </Link>}
+                                                    <span>&nbsp;&nbsp;</span>
+                                                    review
+                                                </h6>
                                             </div>
                                             <div className='col-3'>
+
                                                 <h6>
                                                     {!userId &&
-                                                    user.liked.length
+                                                    <Link to={"liked"}>
+                                                        {user.liked.length}
+                                                    </Link>
                                                     }
                                                     {userId &&
-                                                        otherUser.liked.length} likes</h6>
+                                                    <Link to={"liked"}>
+                                                        {otherUser.liked.length}
+                                                    </Link>}
+                                                    <span>&nbsp;&nbsp;</span>
+                                                    likes
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>

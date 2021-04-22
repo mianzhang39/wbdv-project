@@ -95,14 +95,6 @@ const SignUp = () => {
                             >Sign Up
                             </button>
                         </a>
-
-                        <div className="row">
-                            <div className="col-12">
-                                <a href="#" className="ui-corner-left">Login</a>
-                                <a href="#" className="float-right">Cancel</a>
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </div>
