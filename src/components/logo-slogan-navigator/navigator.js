@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './logo-slogan.css'
 import {Link, useParams} from "react-router-dom";
-
+import userService from "../../services/user/users-service"
 
 const Navigator = () => {
-    const {role} = useParams()
+    const [role, setRole] = useState()
     const transfer = (role) => {
         if (role == undefined) {
             role = "guest"
@@ -19,7 +19,8 @@ const Navigator = () => {
             <div className="col-6">
                 <ul className="nav tabsize">
                     <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" href={"/homepage/" + transfer(role)}>Home</a>
+                        <a className="nav-link active" aria-current="page" href={"/homepage/"}>Home</a>
+                        {/*<a className="nav-link active" aria-current="page" href={"/homepage/" + transfer(role)}>Home</a>*/}
                     </li>
                     <li className="nav-item">
                         <Link to={"/aboutus"}>

@@ -1,15 +1,29 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './logo-slogan.css'
 import {Link, useParams} from "react-router-dom";
+import userService from "../../services/user/users-service"
 
 const NavigatorSignIn = () => {
-    const {role} = useParams()
-    const transfer = (role) => {
-        if (role == undefined) {
-            role = "guest"
-        }
-        return role
-    }
+    const logout = () => userService.logout()
+    const [role, setRole] = useState()
+    // useEffect(() => {
+    //     const interval=()=>{
+    //         userService.profile()
+    //             .then(current => {
+    //                 userService.findUserByName(current.username)
+    //                     .then(currentUser => {
+    //                         setRole(currentUser.role)})
+    //             })
+    //     }
+    //     return()=>clearInterval(interval)
+    // },[])
+
+    // const transfer = (role) => {
+    //     if (role == undefined) {
+    //         role = "guest"
+    //     }
+    //     return role
+    // }
     return(
         <div className="row">
             <div className="col-6">
@@ -18,7 +32,8 @@ const NavigatorSignIn = () => {
             <div className="col-6">
                 <ul className="nav tabsize">
                     <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" href={"/homepage/" + transfer(role)}>Home</a>
+                        {/*<a className="nav-link active" aria-current="page" href={"/homepage/" + transfer(role)}>Home</a>*/}
+                        <a className="nav-link active" aria-current="page" href={"/homepage"}>Home</a>
                     </li>
                     <li className="nav-item">
                         <Link to={"/aboutus"}>
@@ -26,10 +41,12 @@ const NavigatorSignIn = () => {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/SignUp">Profile</a>
+                        <a className="nav-link" href="/profile">Profile</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/SignIn">logout</a>
+                        <a className="nav-link"
+                           href="/homepage"
+                           onClick={() => {logout()} }>logout</a>
                     </li>
                 </ul>
             </div>

@@ -10,6 +10,10 @@ import PublicProfile from "./components/profile/publicProfile";
 import SellBooks from "./components/details/sell-books";
 import LikeList from "./components/details/likes-list";
 import AboutUs from "./components/logo-slogan-navigator/about-us";
+import Following from "./components/profile/following";
+import FollowedBy from "./components/profile/followedby";
+import Comments from "./components/profile/comments";
+import Liked from "./components/profile/liked";
 
 function App() {
     return (
@@ -23,7 +27,11 @@ function App() {
 
                 <Route
                     exact={true}
-                    path={["/profile","/profile/:userId"]}>
+                    path={[
+                        "/profile",
+                        "/profile/:userId",
+                        // "/profile/:role"
+                    ]}>
                     <PrivateProfile/>
                 </Route>
 
@@ -32,6 +40,43 @@ function App() {
                     path={["/aboutus"]}>
                     <AboutUs/>
                 </Route>
+
+                <Route
+                    exact={true}
+                    path={["/followingby"]}>
+                    <FollowedBy/>
+                </Route>
+
+                <Route
+                    exact={true}
+                    path={["/following"]}>
+                    <Following/>
+                </Route>
+
+                <Route
+                    exact={true}
+                    path={["/comments"]}>
+                    <Comments/>
+                </Route>
+
+                <Route
+                    exact={true}
+                    path={["/liked"]}>
+                    <Liked/>
+                </Route>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -47,29 +92,31 @@ function App() {
                     <SignUp/>
                 </Route>
 
-
-
                 <Route
                     exact={true}
-                    path={"/homepage"}>
+                    path={[
+                        "/homepage",
+                        // "/homepage/:role"
+                    ]}>
                     <Homepage/>
                 </Route>
 
                 <Route
                     exact={true}
-                    path={["/homepage", "/homepage/:role"]}>
-                    <Homepage/>
-                </Route>
-
-                <Route
-                    exact={true}
-                    path={["/search", "/:role/search/:title"]}>
+                    path={[
+                        // "/search",
+                        // "/:role/search/:title",
+                        "/search/:title"
+                    ]}>
                     <Search/>
                 </Route>
 
                 <Route
                     exact={true}
-                    path={["/:role/details/:ID"]}>
+                    path={[
+                        // "/:role/details/:ID",
+                        "/details/:ID"
+                    ]}>
                     <Details/>
                 </Route>
 

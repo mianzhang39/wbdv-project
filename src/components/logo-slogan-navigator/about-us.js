@@ -1,9 +1,37 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useHistory, useParams} from "react-router-dom";
 import BasicComponentsWithSearchBar from "../logo-slogan-navigator/basic-components-with-search-bar";
 import "./logo-slogan.css"
+import userService from "../../services/user/users-service";
 
 const AboutUs = () => {
+    const [user,setUser]=useState({
+        username: "",
+        password: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        address: "",
+        city: "",
+        country: "",
+        postalCode: "",
+        aboutMe: "...",
+        following: [],
+        followedBy: [],
+        liked: [],
+        comments: [],
+        sold: []
+    });
+    useEffect(() => {
+        const interval=setInterval(()=>{
+            userService.profile()
+                .then(current => {
+                    userService.findUserByName(current.username)
+                        .then(currentUser => {
+                            setUser(currentUser)})
+                })},5000)
+        return()=>clearInterval(interval)
+    },[])
     return(
         <div className="bg-pic">
             <BasicComponentsWithSearchBar/>
