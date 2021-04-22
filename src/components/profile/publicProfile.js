@@ -95,6 +95,7 @@ const PublicProfile=()=>{
                                                 const newFollow = user.following.push(userId)
                                                 setUser(user => ({...user, newFollow}))
                                                 update()
+                                                setFollowing(true)
                                             }}
                                         >Follow</a>}
                                     </div>
