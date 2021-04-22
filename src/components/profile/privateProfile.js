@@ -12,7 +12,6 @@ import PublicProfile from './publicProfile'
 const PrivateProfile = () => {
     const [signIn,setSignIn]=useState({});
     const {userId}= useParams();
-    console.log(userId)
     const [user,setUser]=useState({
         username: "",
         password: "",
@@ -159,7 +158,6 @@ const PrivateProfile = () => {
                         userId &&
                         <PublicProfile/>
                     }
-
 
 
 
