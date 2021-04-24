@@ -43,7 +43,7 @@ function App() {
 
                 <Route
                     exact={true}
-                    path={["/followingby"]}>
+                    path={["/followedby"]}>
                     <FollowedBy/>
                 </Route>
 

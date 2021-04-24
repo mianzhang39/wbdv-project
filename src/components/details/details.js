@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import {Link, useParams} from 'react-router-dom'
-import bookService from '../../services/book-service'
+import bookService from '../../services/book/book-service'
 import "./details.css"
 import '../components.css'
 import BasicComponentsWithSearchBar from "../logo-slogan-navigator/basic-components-with-search-bar";
 import BuyNewBooks from "./new-books-link";
-import UserComments from "./user-comments";
+import UserCommentInput from "./user-comment-input";
 import BuyUsedBooks from "./used-books-link";
 import UserLikes from "./user-likes";
+import userService from "../../services/user/users-service";
+import UserCommentArea from "./user-comment-area";
 
 
 const Details = () => {
@@ -34,11 +36,21 @@ const Details = () => {
             },
         },
     })
-    const {role, ID} = useParams()
+    const {ID} = useParams()
+    const [user,setUser]=useState({});
     useEffect(() => {
         bookService.findBookById(ID)
             .then(result => setBook(result))
     },[ID])
+
+    useEffect(() => {
+        userService.profile()
+            .then(current => {
+                userService.findUserByName(current.username)
+                    .then(currentUser => {
+                        setUser(currentUser)})
+            })},[])
+
     const ISBN13 = book.volumeInfo.industryIdentifiers && book.volumeInfo.industryIdentifiers.map(
         keys => {
             if (keys.type === "ISBN_13") return keys.identifier
@@ -76,13 +88,13 @@ const Details = () => {
                     </div>
 
                     <div className="detail-blocks">
-                        {role == "buyer" && <BuyUsedBooks/>}
+                        {user.role == "buyer" && <BuyUsedBooks/>}
 
-                        {role == "seller" && <label className="RyCxoe"
+                        {user.role == "seller" && <label className="RyCxoe"
                                                     aria-level="3"
                                                     role="heading">
                             I want to sell it!
-                            <Link to={`/${role}/details/${ID}/sell`} ><button  className='float-right btn btn-primary '>
+                            <Link to={`/details/${ID}/sell`} ><button  className='float-right btn btn-primary '>
                                 Sell
                             </button></Link>
 
@@ -92,7 +104,9 @@ const Details = () => {
                         <br/>
                         <UserLikes/>
                         <br/>
-                        <UserComments/>
+                        <UserCommentArea/>
+                        <br/>
+                        <UserCommentInput/>
                     </div>
                 </section>
             </div>

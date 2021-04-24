@@ -34,8 +34,7 @@ const Homepage = () => {
 
     }}
 
-    const [user,setUser]=useState({
-    });
+    const [user,setUser]=useState({});
     const [totalUser, setTotalUser] = useState("")
     useEffect(() => {
             userService.profile()

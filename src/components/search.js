@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import bookService from '../services/book-service'
+import bookService from '../services/book/book-service'
 import {Link, useParams, useHistory} from "react-router-dom";
 import './components.css';
 import BasicComponentsWithSearchBar from "./logo-slogan-navigator/basic-components-with-search-bar";
