@@ -61,7 +61,10 @@ const logout = () => { return fetch(`${USER_API}/logout`, {
     credentials: "include"
 }).then(response => response.json())}
 
-
+const count = () => {
+    return fetch(`${USER_API}`)
+        .then(response => response.json())
+}
 export default {
-    register, login, logout, profile,findUserByName,updateUser
+    register, login, logout, profile,findUserByName,updateUser,count
 }

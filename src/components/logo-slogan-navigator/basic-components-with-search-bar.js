@@ -25,15 +25,11 @@ const BasicComponentsWithSearchBar = () =>{
         sold: []
     });
     useEffect(() => {
-        const interval=setInterval(()=>{
             userService.profile()
                 .then(current => {
                     userService.findUserByName(current.username)
                         .then(currentUser => {
-                            setUser(currentUser)})
-                })},5000)
-        return()=>clearInterval(interval)
-    },[])
+                            setUser(currentUser)})})} ,[])
     return(
         <>
             <div className="row">

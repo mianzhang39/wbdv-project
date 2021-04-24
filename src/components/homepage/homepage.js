@@ -10,38 +10,44 @@ import {useParams} from "react-router-dom";
 import userService from "../../services/user/users-service";
 
 
+
 const Homepage = () => {
-    const {role} = useParams()
+    // const {role} = useParams()
     const transfer = (role) => {
-        if (role == undefined) {
-            role = "guest"
-        }
-        return role
-    }
+       switch (role) {
+           case "buyer":
+           return (
+           <label className="buyer-sentence">
+               {`Welcome back! You have commented on ${user.comments.length} books and liked ${user.liked.length} books. Find more for yourself!`}
+           </label>
+           )
+           case "seller":
+               return(
+        <label className="seller-sentence">
+            Welcome back! You are selling {user.sold.length} books. Find more for yourself!
+        </label>
+        )
+           default:
+           return(<label className="guest-sentence">
+               Welcome to BookUniverse! There are {totalUser} registered members here. Come on and join us!
+           </label>)
+
+    }}
+
     const [user,setUser]=useState({
-        username: "",
-        password: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-        city: "",
-        country: "",
-        postalCode: "",
-        aboutMe: "...",
-        following: [],
-        followedBy: [],
-        liked: [],
-        comments: [],
-        sold: []
     });
+    const [totalUser, setTotalUser] = useState("")
     useEffect(() => {
             userService.profile()
                 .then(current => {
                     userService.findUserByName(current.username)
                         .then(currentUser => {
                             setUser(currentUser)})
-                })},[])
+                })
+            userService.count()
+                .then(x => setTotalUser(x.length))
+
+    },[])
 
     // useEffect(() => {
     //     const interval=setInterval(()=>{
@@ -59,20 +65,10 @@ const Homepage = () => {
             <BasicComponentsWithoutSearchBar/>
             <hr className="horizontal-line"/>
             <div className="row">
-                {transfer(user.role) == "guest" && <label className="guest-sentence">
-                    Welcome to BookUniverse! There are 25648 registered members here. Come on and join us!
-                </label>}
-
-                {transfer(user.role) == "buyer" && <label className="buyer-sentence">
-                    Welcome back! You have commented on (7) books and liked (10) books. Find more for yourself!
-                </label>}
-
-                {transfer(user.role) =="seller" && <label className="seller-sentence">
-                    Welcome back! You are selling (7) books. Find more for yourself!
-                </label>}
+                {transfer(user.role)}
 
             </div>
-            <HomepageSearchBar role = {transfer(role)}/>
+            <HomepageSearchBar role = {transfer(user.role)}/>
 
         </div>
 
