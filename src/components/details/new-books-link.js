@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import bookService from "../../services/book-service";
+import bookService from "../../services/book/book-service";
 import './details.css'
 
 const BuyNewBooks = () => {

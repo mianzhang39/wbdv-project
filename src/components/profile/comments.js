@@ -43,17 +43,17 @@ const Comments=()=>{
                 <hr className="horizontal-line"/>
                 <br/>
                 <br/>
-                <div className='row'>
-                    <ol>
+                {/*<div className='row'>*/}
+                    <ul>
                     {
                         user.comments && user.comments.map(item => {
                             return(
-                                <li>{item}</li>
+                                <li> {item.bookId}<span>&nbsp;&nbsp;</span>{item.comment} </li>
                             )
                         })
                     }
-                    </ol>
-                </div>
+                    </ul>
+                {/*</div>*/}
             </div>
         </>
     )
