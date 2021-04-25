@@ -4,14 +4,11 @@ import './details.css'
 import localBookService from "../../services/book/local-book-service"
 import userService from "../../services/user/users-service";
 
-const UserCommentArea = () => {
-    const [book, setBook] = useState()
+const UserCommentArea = ({book}) => {
+    //const [book, setBook] = useState()
     const {ID} = useParams()
-    useEffect(() => {
-        localBookService.findLocalBookById(ID)
-            .then(result => setBook(result))
-    },[ID])
 
+    // console.log(book)
     return(
         <>
             <label className="RyCxoe"

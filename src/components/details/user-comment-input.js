@@ -7,11 +7,9 @@ const UserCommentInput = () => {
     const [user,setUser]=useState({});
     useEffect(() => {
         userService.profile()
-            .then(current => {
-                userService.findUserByName(current.username)
-                    .then(currentUser => {
-                        setUser(currentUser)})
-            })},[])
+            .then(current =>
+                        setUser(current)
+            )},[])
 
     return(
             <div>

@@ -1,14 +1,16 @@
-import React from "react";
+import {React,useState} from "react";
 import {Link, useHistory, useParams} from "react-router-dom";
 import "./details.css"
 import '../components.css'
 import "../homepage/homepage.css"
 import BasicComponentsWithSearchBar from "../logo-slogan-navigator/basic-components-with-search-bar";
-
+import localBookService from "../../services/book/local-book-service"
 
 const SellBooks = () => {
-    const {role, ID} = useParams()
+    const {role,ID} = useParams()
     const history = useHistory()
+    const [cachedItem,useCachedItem] = useState({})
+
     return(
         <div className="bg-pic">
             <BasicComponentsWithSearchBar/>

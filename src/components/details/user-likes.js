@@ -5,34 +5,53 @@ import localBookService from "../../services/book/local-book-service"
 import userService from "../../services/user/users-service";
 
 
-const UserLikes = () => {
+const UserLikes = ({
+    user,
+    item,
+                   }) => {
     const history = useHistory()
-    const [book, setBook] = useState()
-    const [otherUser, setOtherUser] = useState()
+    const [book, setBook] = useState(item);
+
     const {ID} = useParams()
-    useEffect(() => {
-        localBookService.findLocalBookById(ID)
-            .then(result => setBook(result))
-    },[ID])
 
-    const [user,setUser]=useState({});
+    const [cachedUser,setCachedUser]=useState(user);
+    const [liked,setLiked] =useState(false);
+    // const [loading,setLoading] = useState(false);
     useEffect(() => {
-        userService.profile()
-            .then(current => {
-                userService.findUserByName(current.username)
-                    .then(currentUser => {
-                        setUser(currentUser)})
-            })},[])
+        if (JSON.stringify(item.likedBy).indexOf(user.username) > -1)
+            setLiked(true)
+    })
 
+    const update = () =>{
+        userService.updateUser(cachedUser)
+            .then(r => console.log(r))
+        localBookService.updateLocalBook(book)
+            .then(r => console.log(r))
+    }
     const transfer = (role) => {
         switch (role) {
-            case ("buyer" || "seller"):
+            case "buyer":
+            case "seller":
                 return (
-                    <button
-                        className='btn btn-primary'
-                        onClick={() => {alert("Thank you for your sharing")}}>
-                        Like
-                    </button>
+                    <div>
+                        {!(liked) &&
+                        <button
+                            className='btn btn-primary'
+                            onClick={() => {
+                                const newList = cachedUser.liked.push(book._id)
+                                setCachedUser(cachedUser => ({...cachedUser, newList}))
+                                const newLike = book.likedBy.push(cachedUser.username)
+                                setBook(book => ({...book, newLike}))
+                                this.liked = false
+                                update()
+                            }}>
+                            Like
+                        </button>
+                        }
+                        {liked &&
+                        <h6>You have liked this book.</h6>
+                        }
+                    </div>
                 )
             default:
                 return(
@@ -45,6 +64,7 @@ const UserLikes = () => {
                 </button>
                 )
         }}
+
     return(
         <div className="row">
             <div className="col-6">
@@ -57,8 +77,17 @@ const UserLikes = () => {
                         {
                             book.likedBy && book.likedBy.map(
                                 user => {
-                                    return(
-                                        <li>{user}</li>
+                                    return(<>
+                                        { (user === cachedUser.username) &&
+                                        <li>{user} (You)</li>
+                                        }
+                                            {(user !== cachedUser.username) &&
+                                                <li>
+                                            <Link to={`/profile/${user}`}>
+                                                {user}</Link>
+                                                </li>
+                                            }
+                                        </>
                                     )
                             })
                         }
@@ -82,7 +111,7 @@ const UserLikes = () => {
                 {/*        history.push("/signup")}}>*/}
                 {/*    Like*/}
                 {/*</button> }*/}
-                {transfer(user.role)}
+                {transfer(cachedUser.role)}
             </div>
         </div>
     )

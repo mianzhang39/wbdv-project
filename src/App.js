@@ -122,9 +122,10 @@ function App() {
 
                 <Route
                     exact={true}
-                    path={["/:role/details/:ID/sell"]}>
+                    path={["/details/:ID/sell"]}>
                     <SellBooks/>
                 </Route>
+
 
                 <Route
                     exact={true}
