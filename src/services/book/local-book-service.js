@@ -7,8 +7,8 @@ const findLocalBookById = (id) => {
         .then(response => response.json())
 }
 
-const createLocalBook = (id) => {
-    const newBook = {_id: id}
+const createLocalBook = (id,title) => {
+    const newBook = {_id: id,title:title}
     return fetch(`${BOOK_API}/${id}/create`, {
         method: "POST",
         credentials: "include",

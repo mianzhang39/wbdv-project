@@ -62,7 +62,7 @@ const Details = () => {
                                 userService.findUserByName(u.username)
                                     .then(currentUser => {
                                         setUser(currentUser)
-                                        localBookService.createLocalBook(ID)
+                                        localBookService.createLocalBook(ID,b.volumeInfo.title)
                                             .then(r => {
                                                 localBookService.findLocalBookById(ID)
                                                     .then(localBook => {

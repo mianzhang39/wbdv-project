@@ -100,7 +100,7 @@ const [comment,setComment] = useState("")
                     <button
                         className='btn btn-primary float-right '
                         onClick={() => {
-                            const userComment = user.comments.push({bookId: item._id, comment: comment})
+                            const userComment = user.comments.push({book: item, comment: comment})
                             setCachedUser(cachedUser => ({...cachedUser,userComment}))
                             const commentList = book.commentedBy.push({username:user.username, comment: comment})
                             setBook(book => ({...book,commentList}))

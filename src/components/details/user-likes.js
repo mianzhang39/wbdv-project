@@ -38,7 +38,7 @@ const UserLikes = ({
                         <button
                             className='btn btn-primary'
                             onClick={() => {
-                                const newList = cachedUser.liked.push(book._id)
+                                const newList = cachedUser.liked.push(book)
                                 setCachedUser(cachedUser => ({...cachedUser, newList}))
                                 const newLike = book.likedBy.push(cachedUser.username)
                                 setBook(book => ({...book, newLike}))
