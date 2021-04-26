@@ -113,7 +113,7 @@ const PrivateProfile = () => {
 
                                     <div className="col">
                                         <div className="row md-3">
-                                            <div className='col-3'>
+                                            <div className='col-4'>
                                                 <h6>
                                                     {!userId &&
                                                     <Link to={"/followedby"}>
@@ -121,7 +121,7 @@ const PrivateProfile = () => {
                                                     </Link>
                                                     }
                                                     {userId &&
-                                                    <Link to={"/followedby"}>
+                                                    <Link to={`/${userId}/followedby`}>
                                                         {otherUser.followedBy.length}
                                                     </Link>
                                                     }
@@ -130,7 +130,7 @@ const PrivateProfile = () => {
                                                 </h6>
 
                                             </div>
-                                            <div className='col-3'>
+                                            <div className='col-4'>
                                                 <h6>
                                                     {!userId &&
                                                     <Link to={"/following"}>
@@ -138,7 +138,7 @@ const PrivateProfile = () => {
                                                     </Link>
                                                     }
                                                     {userId &&
-                                                    <Link to={"/following"}>
+                                                    <Link to={`/${userId}/following`}>
                                                         {otherUser.following.length}
                                                     </Link>}
                                                     <span>&nbsp;&nbsp;</span>
@@ -146,7 +146,7 @@ const PrivateProfile = () => {
                                                 </h6>
 
                                             </div>
-                                            <div className='col-3'>
+                                            <div className='col-4'>
                                                 <h6>
                                                     {!userId &&
                                                     <Link to={"/comments"}>
@@ -154,29 +154,29 @@ const PrivateProfile = () => {
                                                     </Link>
                                                     }
                                                     {userId &&
-                                                    <Link to={"/comments"}>
+                                                    <Link to={`/${userId}/comments`}>
                                                         {otherUser.comments.length}
                                                     </Link>}
                                                     <span>&nbsp;&nbsp;</span>
                                                     review
                                                 </h6>
                                             </div>
-                                            <div className='col-3'>
+                                            {/*<div className='col-3'>*/}
 
-                                                <h6>
-                                                    {!userId &&
-                                                    <Link to={"liked"}>
-                                                        {user.liked.length}
-                                                    </Link>
-                                                    }
-                                                    {userId &&
-                                                    <Link to={"liked"}>
-                                                        {otherUser.liked.length}
-                                                    </Link>}
-                                                    <span>&nbsp;&nbsp;</span>
-                                                    likes
-                                                </h6>
-                                            </div>
+                                            {/*    <h6>*/}
+                                            {/*        {!userId &&*/}
+                                            {/*        <Link to={"liked"}>*/}
+                                            {/*            {user.liked.length}*/}
+                                            {/*        </Link>*/}
+                                            {/*        }*/}
+                                            {/*        {userId &&*/}
+                                            {/*        <Link to={"liked"}>*/}
+                                            {/*            {otherUser.liked.length}*/}
+                                            {/*        </Link>}*/}
+                                            {/*        <span>&nbsp;&nbsp;</span>*/}
+                                            {/*        likes*/}
+                                            {/*    </h6>*/}
+                                            {/*</div>*/}
                                         </div>
                                     </div>
                                     <div className="col">

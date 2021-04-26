@@ -43,27 +43,27 @@ function App() {
 
                 <Route
                     exact={true}
-                    path={["/followedby"]}>
+                    path={["/followedby","/:userId/followedby"]}>
                     <FollowedBy/>
                 </Route>
 
                 <Route
                     exact={true}
-                    path={["/following"]}>
+                    path={["/following","/:userId/following"]}>
                     <Following/>
                 </Route>
 
                 <Route
                     exact={true}
-                    path={["/comments"]}>
+                    path={["/comments","/:userId/comments"]}>
                     <Comments/>
                 </Route>
 
-                <Route
-                    exact={true}
-                    path={["/liked"]}>
-                    <Liked/>
-                </Route>
+                {/*<Route*/}
+                {/*    exact={true}*/}
+                {/*    path={["/liked"]}>*/}
+                {/*    <Liked/>*/}
+                {/*</Route>*/}
 
 
 
