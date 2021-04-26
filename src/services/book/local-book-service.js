@@ -1,15 +1,15 @@
 
 
-const BOOK_API = "http://localhost:4000/api/local";
+const BOOK_API = process.env.REACT_APP_NODE_SERVER_URL;
 
 const findLocalBookById = (id) => {
-    return fetch(`${BOOK_API}/${id}`)
+    return fetch(`${BOOK_API}/api/local/${id}`)
         .then(response => response.json())
 }
 
 const createLocalBook = (id,title) => {
     const newBook = {_id: id,title:title}
-    return fetch(`${BOOK_API}/${id}/create`, {
+    return fetch(`${BOOK_API}/api/local/${id}/create`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(newBook),
@@ -22,7 +22,7 @@ const createLocalBook = (id,title) => {
 }
 
 const updateLocalBook = (updated) =>{
-    return fetch(`${BOOK_API}/profile`, {
+    return fetch(`${BOOK_API}/api/local/profile`, {
         method: "PUT",
         credentials: "include",
         body: JSON.stringify(updated),

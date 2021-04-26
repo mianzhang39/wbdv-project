@@ -1,7 +1,7 @@
-const USER_API = "http://localhost:4000/api/users";
+const USER_API = process.env.REACT_APP_NODE_SERVER_URL;
 
 const profile = () => {
-    return fetch(`${USER_API}/profile`, {
+    return fetch(`${USER_API}/api/users/profile`, {
         method: "POST",
         credentials: "include"
     }).then(response => response.json())
@@ -9,7 +9,7 @@ const profile = () => {
 
 
 const login = (credentials) => {
-    return fetch(`${USER_API}/login`, {
+    return fetch(`${USER_API}/api/users/login`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(credentials),
@@ -21,7 +21,7 @@ const login = (credentials) => {
 }
 
 const register = (credentials) => {
-    return fetch(`${USER_API}/register`, {
+    return fetch(`${USER_API}/api/users/register`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(credentials),
@@ -33,12 +33,12 @@ const register = (credentials) => {
 }
 
 const findUserByName = (name) => {
-    return fetch(`${USER_API}/${name}`)
+    return fetch(`${USER_API}/api/users/${name}`)
         .then(response => response.json())
 }
 
 const updateUser = (updated) => {
-    return fetch(`${USER_API}/profile`, {
+    return fetch(`${USER_API}/api/users/profile`, {
         method: "PUT",
         credentials: "include",
         body: JSON.stringify(updated),
@@ -56,7 +56,7 @@ const updateUser = (updated) => {
 //         .then(response => response.json())
 // }
 
-const logout = () => { return fetch(`${USER_API}/logout`, {
+const logout = () => { return fetch(`${USER_API}/api/users/logout`, {
     method: "POST",
     credentials: "include"
 }).then(response => response.json())}
