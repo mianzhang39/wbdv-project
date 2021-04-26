@@ -55,15 +55,19 @@ const Homepage = () => {
     useEffect(() => {
         userService.profile()
             .then(current => {
+                if (current === 0){
+                    setUser({role:"guest"})
+                    setLoading(false)
+                }else{
                 userService.findUserByName(current.username)
                     .then(currentUser => {
                         setUser(currentUser)
-
-                    })
+                        setLoading(false)
+                    }
+                )}
             })
         userService.count()
             .then(x => setTotalUser(x.length))
-        setLoading(false)
 
     }, [])
     // useEffect(() => {
@@ -83,7 +87,7 @@ const Homepage = () => {
 
         return (
             <div className="bg-pic">
-                <BasicComponentsWithoutSearchBar/>
+                <BasicComponentsWithoutSearchBar user={user.role}/>
                 <hr className="horizontal-line"/>
                 <div className="row">
                     {transfer(user.role)}

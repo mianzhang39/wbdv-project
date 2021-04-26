@@ -5,12 +5,14 @@ import {Link, useParams, useHistory} from "react-router-dom";
 import './components.css';
 import BasicComponentsWithSearchBar from "./logo-slogan-navigator/basic-components-with-search-bar";
 import SearchCard from "./search-card";
+import userService from "../services/user/users-service";
 
 const Search = () => {
     const {title} = useParams()
     const [searchTitle, setSearchTitle] = useState("")
     const [results, setResults] = useState([])
     const [loading, setLoading] = useState(true);
+    const [user,setUser] = useState({})
     // const [authors, setAuthors] = useState([])
     // const {role} = useParams()
     // const history = useHistory()
@@ -19,17 +21,29 @@ const Search = () => {
         setSearchTitle(title)
         if (title) {
             bookService.findBookByTitle(title)
-                .then(results => setResults(results.items))
-
+                .then(results => {setResults(results.items)})
+            userService.profile()
+                .then(current => {
+                    if (current === 0){
+                        setUser({role:"guest"})
+                        setLoading(false)
+                    }else{
+                        userService.findUserByName(current.username)
+                            .then(currentUser => {
+                                    setUser(currentUser)
+                                    setLoading(false)
+                                }
+                            )}
+                })
         }
-        setLoading(false)
+
     }, [title])
     if (loading) {
         return <div>loading...</div>
     } else {
         return (
             <div className='bg-pic-1'>
-                <BasicComponentsWithSearchBar/>
+                <BasicComponentsWithSearchBar user = {user}/>
 
                 <br className="horizontal-line"/>
 
