@@ -2,7 +2,7 @@ import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import './details.css'
 import localBookService from "../../services/book/local-book-service"
-
+import offerService from "../../services/offer/offer-service"
 
 const BuyUsedBooks = ({item}) => {
     const [book, setBook] = useState(item)
@@ -48,6 +48,12 @@ const BuyUsedBooks = ({item}) => {
                                 })
                             }
                         </ul>
+
+
+
+
+
+
                     </div>
                 </div>
             </div>
