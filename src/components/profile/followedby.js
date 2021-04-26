@@ -3,11 +3,13 @@ import SignInSearchBar from "../logo-slogan-navigator/signin_search_bar";
 import BasicComponentsWithSearchBar from "../logo-slogan-navigator/basic-components-with-search-bar";
 import Card from "./card";
 import userService from "../../services/user/users-service";
+import {useParams} from "react-router-dom";
 
 
-const FollowedBy=()=>{
-    const [signIn,setSignIn]=useState({})
-    const [user,setUser]=useState({
+const FollowedBy=()=> {
+    const [signIn, setSignIn] = useState({})
+    const {userId} = useParams()
+    const [user, setUser] = useState({
         username: "",
         password: "",
         email: "",
@@ -24,34 +26,78 @@ const FollowedBy=()=>{
         comments: [],
         sold: []
     });
+    const [otherUser, setOtherUser] = useState({
+        username: "",
+        password: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        address: "",
+        city: "",
+        country: "",
+        postalCode: "",
+        aboutMe: "",
+        following: [],
+        followedBy: [],
+        liked: [],
+        comments: [],
+        sold: []
+    });
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
+        setLoading(true)
         userService.profile()
             .then(current => {
-                userService.findUserByName(current.username)
-                    .then(currentUser => {
-                        setUser(currentUser)})
-            })},[])
-    return(
-        <>
-            <div className="bg-pic">
-                {signIn &&
-                <SignInSearchBar/>}
-                {!signIn &&
-                <BasicComponentsWithSearchBar/>}
+                if (current === 0) {
+                    userService.findUserByName(userId)
+                        .then(response => {
+                            setOtherUser(response)
+                        })
+                    setLoading(false)
+                } else {
+                    userService.findUserByName(current.username)
+                        .then(currentUser => {
+                            setUser(currentUser)
+                            if (userId) {
+                                // console.log("have userId")
+                                userService.findUserByName(userId)
+                                    .then(response => {
+                                        setOtherUser(response)
+
+                                    })
+                            }
+                            setLoading(false)
+                        })
+                }
+            })
+    }, [])
+    if (loading) {
+        return <div>loading...</div>
+    } else {
+        return (
+            <>
+                <div className="bg-pic">
+                    {signIn &&
+                    <SignInSearchBar/>}
+                    {!signIn &&
+                    <BasicComponentsWithSearchBar/>}
 
 
-                <hr className="horizontal-line"/>
-                <br/>
-                <br/>
-                <div className='row'>
-                    {
-                        user.followedBy && user.followedBy.map(username=>
-                            <Card username={username} />)
-                    }
+                    <hr className="horizontal-line"/>
+                    <br/>
+                    <br/>
+                    <div className='row'>
+
+                        {!userId && user.followedBy && user.followedBy.map(username =>
+                            <Card username={username}/>)}
+                        {userId && otherUser.followedBy && otherUser.followedBy.map(username =>
+                            <Card username={username}/>)}
+
+                    </div>
                 </div>
-            </div>
-        </>
-    )
+            </>
+        )
+    }
 }
 
 export default FollowedBy
