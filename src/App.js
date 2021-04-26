@@ -1,5 +1,5 @@
 import Search from "./components/search";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route,Redirect} from "react-router-dom";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Homepage from "./components/homepage/homepage";
@@ -19,11 +19,9 @@ function App() {
     return (
         <div className="container-fluid">
             <BrowserRouter>
-                <Route
-                    exact={true}
-                    path={'/'}
-                    component={Home}
-                    ></Route>
+                <Route exact path="/">
+                    <Redirect to="/homepage" />
+                </Route>
 
                 <Route
                     exact={true}

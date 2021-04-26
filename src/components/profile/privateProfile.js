@@ -10,7 +10,7 @@ import PublicProfile from './publicProfile'
 
 
 const PrivateProfile = () => {
-    const [signIn,setSignIn]=useState({});
+    const [signIn,setSignIn]=useState(false);
     const {userId}= useParams();
     const [user,setUser]=useState({
         username: "",
@@ -52,6 +52,7 @@ const PrivateProfile = () => {
             userService.profile()
             .then(current => {
                 if (current === 0) {
+                    setSignIn(false)
                     userService.findUserByName(userId)
                         .then(response => {
                             setOtherUser(response)
@@ -59,6 +60,7 @@ const PrivateProfile = () => {
                     setLoading(false)
                 }
                 else {
+                    setSignIn(true)
                     userService.findUserByName(current.username)
                         .then(currentUser => {
                             setUser(currentUser)

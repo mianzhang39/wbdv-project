@@ -7,7 +7,7 @@ import {useParams} from "react-router-dom";
 
 
 const FollowedBy=()=> {
-    const [signIn, setSignIn] = useState({})
+    const [signIn, setSignIn] = useState(false)
     const {userId} = useParams()
     const [user, setUser] = useState({
         username: "",
@@ -49,12 +49,14 @@ const FollowedBy=()=> {
         userService.profile()
             .then(current => {
                 if (current === 0) {
+                    setSignIn(false)
                     userService.findUserByName(userId)
                         .then(response => {
                             setOtherUser(response)
                         })
                     setLoading(false)
                 } else {
+                    setSignIn(true)
                     userService.findUserByName(current.username)
                         .then(currentUser => {
                             setUser(currentUser)

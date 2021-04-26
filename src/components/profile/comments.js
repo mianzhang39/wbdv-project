@@ -7,7 +7,7 @@ import {useParams} from "react-router-dom";
 
 
 const Comments=()=>{
-    const [signIn,setSignIn]=useState({});
+    const [signIn,setSignIn]=useState(false);
     const {userId}=useParams()
     const [user,setUser]=useState({
         username: "",
@@ -49,6 +49,7 @@ const Comments=()=>{
         userService.profile()
             .then(current => {
                 if (current === 0) {
+                    setSignIn(false)
                     userService.findUserByName(userId)
                         .then(response => {
                             setOtherUser(response)
@@ -56,6 +57,7 @@ const Comments=()=>{
                     setLoading(false)
                 }
                 else {
+                    setSignIn(true)
                     userService.findUserByName(current.username)
                         .then(currentUser => {
                             setUser(currentUser)
