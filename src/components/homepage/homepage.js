@@ -13,6 +13,7 @@ import userService from "../../services/user/users-service";
 
 const Homepage = () => {
     // const {role} = useParams()
+
     const transfer = (role) => {
         switch (role) {
             case "buyer":
@@ -37,6 +38,7 @@ const Homepage = () => {
 
     const [user, setUser] = useState({});
     const [totalUser, setTotalUser] = useState("")
+    const [loading, setLoading] = useState(true);
     // useEffect(() => {
     //     const load = async () => {
     //         setLoading(true)
@@ -50,27 +52,20 @@ const Homepage = () => {
     //     load()
     //
     // }, [])
-    const [load,setLoad] =useState(true)
     useEffect(() => {
-        setLoad(true)
-        userService.count()
-            .then(x => setTotalUser(x.length))
         userService.profile()
             .then(current => {
-                if (current === 0){
-                    setUser({role:"guest"})
-                    setLoad(false)
-                }else{
                 userService.findUserByName(current.username)
                     .then(currentUser => {
                         setUser(currentUser)
-                        setLoad(false)
+
                     })
-                }
             })
+        userService.count()
+            .then(x => setTotalUser(x.length))
+        setLoading(false)
 
-
-    },[])
+    }, [])
     // useEffect(() => {
     //     const interval=setInterval(()=>{
     //         userService.profile()
@@ -81,10 +76,14 @@ const Homepage = () => {
     //             })},100)
     //     return()=>clearInterval(interval)
     // },[])
-if (load) {return <div>loading...</div>}
+
+    if (loading) {
+        return <div>loading...</div>
+    } else {
+
         return (
             <div className="bg-pic">
-                <BasicComponentsWithoutSearchBar user={user}/>
+                <BasicComponentsWithoutSearchBar/>
                 <hr className="horizontal-line"/>
                 <div className="row">
                     {transfer(user.role)}
@@ -96,6 +95,7 @@ if (load) {return <div>loading...</div>}
 
         )
     }
+}
 
 
 export default Homepage
