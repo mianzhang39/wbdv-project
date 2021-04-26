@@ -4,11 +4,18 @@ import './details.css'
 import localBookService from "../../services/book/local-book-service"
 import userService from "../../services/user/users-service";
 
-const UserCommentArea = ({book}) => {
+const UserCommentArea = ({user, book}) => {
     //const [book, setBook] = useState()
-    const {ID} = useParams()
+    // const {ID} = useParams()
 
     // console.log(book)
+    const [haveComment, setHaveComment] = useState(false)
+
+    useEffect(() =>{
+       if (JSON.stringify(book.commentedBy).indexOf(user.username) >-1)
+           setHaveComment(true)
+    })
+
     return(
         <>
             <label className="RyCxoe"
@@ -40,13 +47,13 @@ const UserCommentArea = ({book}) => {
 
             </div>
 
-            <label className="RyCxoe"
-                   aria-level="3"
-                   role="heading">
-                Leave your ideas about this book...
-            </label>
-            <br/>
-            <textarea className='write-comment'></textarea>
+            {/*<label className="RyCxoe"*/}
+            {/*       aria-level="3"*/}
+            {/*       role="heading">*/}
+            {/*    Leave your ideas about this book...*/}
+            {/*</label>*/}
+            {/*<br/>*/}
+            {/*<textarea className='write-comment'></textarea>*/}
 
         </>
     )

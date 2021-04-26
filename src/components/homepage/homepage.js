@@ -14,40 +14,54 @@ import userService from "../../services/user/users-service";
 const Homepage = () => {
     // const {role} = useParams()
     const transfer = (role) => {
-       switch (role) {
-           case "buyer":
-           return (
-           <label className="buyer-sentence">
-               {`Welcome back! You have commented on ${user.comments.length} books and liked ${user.liked.length} books. Find more for yourself!`}
-           </label>
-           )
-           case "seller":
-               return(
-        <label className="seller-sentence">
-            Welcome back! You are selling {user.sold.length} books. Find more for yourself!
-        </label>
-        )
-           default:
-           return(<label className="guest-sentence">
-               Welcome to BookUniverse! There are {totalUser} registered members here. Come on and join us!
-           </label>)
+        switch (role) {
+            case "buyer":
+                return (
+                    <label className="buyer-sentence">
+                        {`Welcome back! You have commented on ${user.comments.length} books and liked ${user.liked.length} books. Find more for yourself!`}
+                    </label>
+                )
+            case "seller":
+                return (
+                    <label className="seller-sentence">
+                        Welcome back! You are selling {user.sold.length} books. Find more for yourself!
+                    </label>
+                )
+            default:
+                return (<label className="guest-sentence">
+                    Welcome to BookUniverse! There are {totalUser} registered members here. Come on and join us!
+                </label>)
 
-    }}
+        }
+    }
 
-    const [user,setUser]=useState({});
+    const [user, setUser] = useState({});
     const [totalUser, setTotalUser] = useState("")
+    // useEffect(() => {
+    //     const load = async () => {
+    //         setLoading(true)
+    //         const res = await userService.profile()
+    //         const u = await userService.findUserByName(res.username)
+    //         await setUser(u)
+    //         const t = await userService.count()
+    //         await setTotalUser(t)
+    //         if (t) setLoading(false)
+    //     }
+    //     load()
+    //
+    // }, [])
     useEffect(() => {
-            userService.profile()
-                .then(current => {
-                    userService.findUserByName(current.username)
-                        .then(currentUser => {
-                            setUser(currentUser)})
-                })
-            userService.count()
-                .then(x => setTotalUser(x.length))
+        userService.profile()
+            .then(current => {
+                userService.findUserByName(current.username)
+                    .then(currentUser => {
+                        setUser(currentUser)
+                    })
+            })
+        userService.count()
+            .then(x => setTotalUser(x.length))
 
     },[])
-
     // useEffect(() => {
     //     const interval=setInterval(()=>{
     //         userService.profile()
@@ -59,20 +73,21 @@ const Homepage = () => {
     //     return()=>clearInterval(interval)
     // },[])
 
-    return(
-        <div className="bg-pic">
-            <BasicComponentsWithoutSearchBar/>
-            <hr className="horizontal-line"/>
-            <div className="row">
-                {transfer(user.role)}
+        return (
+            <div className="bg-pic">
+                <BasicComponentsWithoutSearchBar/>
+                <hr className="horizontal-line"/>
+                <div className="row">
+                    {transfer(user.role)}
+
+                </div>
+                <HomepageSearchBar role={transfer(user.role)}/>
 
             </div>
-            <HomepageSearchBar role = {transfer(user.role)}/>
 
-        </div>
+        )
+    }
 
-    )
-}
 
 export default Homepage
 

@@ -41,32 +41,45 @@ const Details = () => {
     const [loading, setLoading] = useState(true);
     const [local, setLocal] =useState({});
     useEffect(() => {
+            setLoading(true);
+            bookService.findBookById(ID)
+            .then(b => {setBook(b)
+                userService.profile()
+                    .then((u) => {
+                            console.log(u)
+                            if (u === 0) {
+                                setUser({})
+                                localBookService.createLocalBook(ID)
+                                    .then(r => {
+                                        localBookService.findLocalBookById(ID)
+                                            .then(localBook => {
+                                                setLocal(localBook)
+                                                setLoading(false)
+                                            })
 
-            const loadUser = async () =>{
-                console.log("now loading")
-                setLoading(true)
-                const info = await bookService.findBookById(ID)
-                await setBook(info)
-                const res = await userService.profile()
-                const user = await userService.findUserByName(res.username)
-                await setUser(user)
-                console.log(user)
+                                    })
+                            } else {
+                                userService.findUserByName(u.username)
+                                    .then(currentUser => {
+                                        setUser(currentUser)
+                                        localBookService.createLocalBook(ID)
+                                            .then(r => {
+                                                localBookService.findLocalBookById(ID)
+                                                    .then(localBook => {
+                                                        setLocal(localBook)
+                                                        setLoading(false)
+                                                    })
 
-                const r = await localBookService.createLocalBook(ID)
-                if (r) {const rr = await localBookService.findLocalBookById(ID)
-                    setLocal(rr)
+                                            })
+                                    })
 
-                    if (rr) {setLoading(false)
-                        console.log(local)}
-                    }
-
-
-            }
-            loadUser().then(x => console.log(x))
+                            }
+                        }
+                    )
+            })
 
 
-    }
-    ,[ID])
+            },[])
 
     const pic =
         book.volumeInfo.imageLinks === undefined ?
@@ -114,7 +127,7 @@ else {
                         </div>
 
                         <div className="detail-blocks">
-                            {user.role == "buyer" && <BuyUsedBooks/>}
+                            {user.role == "buyer" && <BuyUsedBooks item={local}/>}
 
                             {user.role == "seller" && <label className="RyCxoe"
                                                              aria-level="3"
@@ -133,10 +146,8 @@ else {
                             <UserLikes user = {user}
                             item={local}
                             />
-                            <br/>
-                            <UserCommentArea book={local}/>
-                            <br/>
-                            <UserCommentInput/>
+                            <UserCommentInput user={user}
+                            item={local}/>
                         </div>
                     </section>
                 </div>

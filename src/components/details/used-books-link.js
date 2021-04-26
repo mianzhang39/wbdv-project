@@ -4,13 +4,10 @@ import './details.css'
 import localBookService from "../../services/book/local-book-service"
 
 
-const BuyUsedBooks = () => {
-    const [book, setBook] = useState()
+const BuyUsedBooks = ({item}) => {
+    const [book, setBook] = useState(item)
     const {ID} = useParams()
-    useEffect(() => {
-        localBookService.findLocalBookById(ID)
-            .then(result => setBook(result))
-    },[ID])
+
     return(
         <>
             <div className="RyCxoe"
@@ -37,7 +34,16 @@ const BuyUsedBooks = () => {
                             {
                                 book.selledBy && book.selledBy.map(user => {
                                     return (
-                                        <li> {user.username}<span>&nbsp;&nbsp;</span>{user.price} </li>
+                                        <li>
+                                            <>
+                                            <Link to ={`/profile/${user.username}`}>
+                                                {user.username}
+                                            </Link>
+                                            <span>&nbsp;&nbsp;</span>
+
+                                            {user.price}
+                                            </>
+                                        </li>
                                     )
                                 })
                             }

@@ -85,8 +85,9 @@ const PublicProfile=()=>{
                                               value={cachedItem.aboutMe}
                                     />
                                 </div>
+
                                 {
-                                    !following &&
+                                    !following && user.username &&
                                     <div className="d-flex justify-content-between">
                                         {<a href="#" className="btn btn-sm btn-info float-right"
                                             onClick={() => {
@@ -100,7 +101,7 @@ const PublicProfile=()=>{
                                         >Follow</a>}
                                     </div>
                                 }
-                                {following &&
+                                {following && user.username &&
                                         <h5>You have followed this user.</h5>
                                 }
                             </div>

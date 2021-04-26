@@ -42,7 +42,7 @@ const UserLikes = ({
                                 setCachedUser(cachedUser => ({...cachedUser, newList}))
                                 const newLike = book.likedBy.push(cachedUser.username)
                                 setBook(book => ({...book, newLike}))
-                                this.liked = false
+                                setLiked(false)
                                 update()
                             }}>
                             Like

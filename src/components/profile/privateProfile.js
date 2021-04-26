@@ -46,23 +46,36 @@ const PrivateProfile = () => {
         comments: [],
         sold: []
     });
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        const interval=setInterval(()=>{
+        setLoading(true)
             userService.profile()
             .then(current => {
-                userService.findUserByName(current.username)
-                    .then(currentUser => {
-                        setUser(currentUser)
-                        if (userId) {
-                            // console.log("have userId")
-                            userService.findUserByName(userId)
-                                .then(response => setOtherUser(response))
-                        }
-                    })
+                if (current === 0) {
+                    userService.findUserByName(userId)
+                        .then(response => {
+                            setOtherUser(response)
+                        })
+                    setLoading(false)
+                }
+                else {
+                    userService.findUserByName(current.username)
+                        .then(currentUser => {
+                            setUser(currentUser)
+                            if (userId) {
+                                // console.log("have userId")
+                                userService.findUserByName(userId)
+                                    .then(response => {
+                                        setOtherUser(response)
+
+                                    })
+                            }
+                            setLoading(false)
+                        })
+                }
             })
-        },5000)
-        return()=>clearInterval(interval)
     },[])
+    if (loading) {return <div>loading...</div>}
     return(
         <div className="bg-pic">
             {signIn &&  <SignInSearchBar/>}
