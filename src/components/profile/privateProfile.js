@@ -87,7 +87,7 @@ const PrivateProfile = () => {
             <br/>
             <br/>
 
-            <h1 className=" text-gray welcome-sentence">Hello {user.role} {user.username}! This is your profile page.</h1>
+            <h1 className=" text-gray welcome-sentence">Profile Page</h1>
             <div className="container-fluid padding">
                 <div className=" mb-3 row ">
                     <div className="col-4">

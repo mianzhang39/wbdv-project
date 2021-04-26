@@ -2,10 +2,12 @@ import React, {useEffect, useState} from "react";
 import './details.css'
 import userService from "../../services/user/users-service";
 import localBookService from "../../services/book/local-book-service";
+import {Link} from "react-router-dom"
 
 
 const UserCommentInput = ({user,
-                          item}) => {
+                          item,
+                          }) => {
     const update = () =>{
         userService.updateUser(cachedUser)
             .then(r => console.log(r))
@@ -37,15 +39,45 @@ const [comment,setComment] = useState("")
                     {/*    :Wow! I like it!*/}
                     {/*</label>*/}
 
-                    <ul>
+                    <div className="list-group">
                         {
-                            book.commentedBy && book.commentedBy.map(comment => {
+                            book.commentedBy && book.commentedBy.map(c => {
                                 return (
-                                    <li> {comment.username}<span>&nbsp;&nbsp;</span>{comment.comment} </li>
+                                    <div className="list-group-item">
+                                    <div className="row">
+                                     <div className="col-1">
+                                        <Link to ={`/profile/${c.username}`}>
+                                            {c.username}
+                                        </Link>
+
+                                     </div>
+                                        <div className="col-8">
+                                            <h3>{c.comment}</h3>
+                                        </div>
+                                {/*        {c.username === user.username &&*/}
+                                {/*            <div className="col-2">*/}
+                                {/*    <button className="btn btn-danger"*/}
+                                {/*            onClick={() => {*/}
+                                {/*                //const idToDelete1 = user.comments.find((k) => (k.comment === c.comment))._id*/}
+                                {/*                const userComment = user.comments.filter((k) => (k.comment !== c.comment))*/}
+                                {/*                setCachedUser(cachedUser => ({...cachedUser,comments: userComment}))*/}
+                                {/*                //const idToDelete2 = book.commentedBy.find((k) => (k.comment === c.comment))._id*/}
+                                {/*                const commentList = book.commentedBy.filter((k) => (k.comment !== c.comment))*/}
+                                {/*                console.log(commentList)*/}
+                                {/*                setBook(book => ({...book,commentedBy: commentList}))*/}
+
+                                {/*            }}*/}
+                                {/*    >*/}
+                                {/*        delete comment*/}
+                                {/*    </button>*/}
+                                {/*</div>}*/}
+                                    </div>
+
+                                    </div>
                                 )
                             })
                         }
-                    </ul>
+                    </div>
 
                 </div>
             </div>

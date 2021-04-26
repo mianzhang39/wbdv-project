@@ -25,7 +25,7 @@ const SignUp = () => {
     return(
 
         <div className="bg-pic">
-            <BasicComponentsWithoutSearchBar/>
+            <BasicComponentsWithoutSearchBar user={{role:"guest"}}/>
             <hr className="horizontal-line"/>
             <br/>
             <br/>

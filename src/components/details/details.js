@@ -95,7 +95,7 @@ const Details = () => {
 else {
         return (
             <div className='bg-pic-1'>
-                <BasicComponentsWithSearchBar/>
+                <BasicComponentsWithSearchBar user={user}/>
                 <br className="horizontal-line"/>
                 <hr/>
 

@@ -50,16 +50,25 @@ const Homepage = () => {
     //     load()
     //
     // }, [])
+    const [load,setLoad] =useState(true)
     useEffect(() => {
+        setLoad(true)
+        userService.count()
+            .then(x => setTotalUser(x.length))
         userService.profile()
             .then(current => {
+                if (current === 0){
+                    setUser({role:"guest"})
+                    setLoad(false)
+                }else{
                 userService.findUserByName(current.username)
                     .then(currentUser => {
                         setUser(currentUser)
+                        setLoad(false)
                     })
+                }
             })
-        userService.count()
-            .then(x => setTotalUser(x.length))
+
 
     },[])
     // useEffect(() => {
@@ -72,10 +81,10 @@ const Homepage = () => {
     //             })},100)
     //     return()=>clearInterval(interval)
     // },[])
-
+if (load) {return <div>loading...</div>}
         return (
             <div className="bg-pic">
-                <BasicComponentsWithoutSearchBar/>
+                <BasicComponentsWithoutSearchBar user={user}/>
                 <hr className="horizontal-line"/>
                 <div className="row">
                     {transfer(user.role)}
