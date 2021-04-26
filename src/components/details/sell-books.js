@@ -7,19 +7,21 @@ import BasicComponentsWithSearchBar from "../logo-slogan-navigator/basic-compone
 import localBookService from "../../services/book/local-book-service"
 import bookService from "../../services/book/book-service";
 import userService from "../../services/user/users-service";
+import offerService from "../../services/offer/offer-service"
 
 const SellBooks = () => {
     const {ID} = useParams();
     const history = useHistory();
     const [user,setUser] = useState({});
     const [loading, setLoading] = useState(true);
-    const [local, setLocal] = useState({});
     const [price, setPrice] = useState("");
+    // const [offer, setOffer] = useState({bookId:ID,soldBy:"",price:""});
 
     const update = () =>{
         userService.updateUser(user)
             .then(r => console.log(r))
-        localBookService.updateLocalBook(local)
+
+        offerService.createOffer({bookId:ID,soldBy:user.username,price:price})
             .then(r => console.log(r))
     }
 
@@ -31,17 +33,14 @@ const SellBooks = () => {
                 userService.findUserByName(u.username)
                     .then(currentUser => {
                         setUser(currentUser)
-                                localBookService.findLocalBookById(ID)
-                                    .then(localBook => {
-                                        setLocal(localBook)
-                                        setLoading(false)
-
+                        // setOffer(offer =>({...offer,soldBy:user.username}))
+                        setLoading(false)
                             })
                     })
 
-            })
+            }
 
-    },[])
+    ,[])
 
 
 
@@ -68,12 +67,13 @@ const SellBooks = () => {
                     <button type="button"
                             className="btn btn-outline-primary btn-lg"
                             onClick={() => {
-                                const soldList = user.sold.push({bookId: ID, price: price})
+                                const soldList = user.sold.push(price)
                                 setUser(user => ({...user, soldList}))
-                                const offerList = local.selledBy.push({username:user.username, price: price})
-                                setLocal( local => ({...local, offerList}))
+                                const p = price
+                                console.log(p)
+                                // setOffer(offer => ({...offer,price:p}))
                                 update()
-                                alert("Request submitted successfully")
+
                                 history.push(`/details/${ID}`)
                             }}>
                         Submit

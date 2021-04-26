@@ -13,18 +13,18 @@ const createOffer = (offer) => {
 }
 
 const findOfferByID = (bookId) => {
-    return fetch(`${OFFER_API}/${bookId}`)
+    return fetch(`${OFFER_API}/book/${bookId}`)
         .then(response => response.json())
 }
 
 
 const findOfferByUsername = (soldBy) => {
-    return fetch(`${OFFER_API}/${soldBy}`)
+    return fetch(`${OFFER_API}/user/${soldBy}`)
         .then(response => response.json())
 }
 
 const deleteOffer = (offer) => {
-    return fetch(`${OFFER_API}/delete`, {
+    return fetch(`${OFFER_API}/delete/${offer._id}`, {
         method: "DELETE",
         credentials: "include",
         body: JSON.stringify(offer),

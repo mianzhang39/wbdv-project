@@ -6,6 +6,7 @@ import userService from "../../services/user/users-service";
 import NavigatorSignIn from "./navigator_signin";
 
 const BasicComponentsWithoutSearchBar = ({user}) => {
+    console.log(user)
     // const [user,setUser]=useState({
     //     username: "",
     //     password: "",

@@ -5,25 +5,10 @@ import Card from "./card";
 import userService from "../../services/user/users-service";
 
 
-const Liked=()=>{
+const Liked = () => {
     const [signIn,setSignIn]=useState({})
-    const [user,setUser]=useState({
-        username: "",
-        password: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-        city: "",
-        country: "",
-        postalCode: "",
-        aboutMe: "...",
-        following: [],
-        followedBy: [],
-        liked: [],
-        comments: [],
-        sold: []
-    });
+    const [user,setUser]=useState({});
+
     useEffect(() => {
         userService.profile()
             .then(current => {

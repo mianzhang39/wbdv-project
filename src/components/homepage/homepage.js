@@ -25,7 +25,7 @@ const Homepage = () => {
             case "seller":
                 return (
                     <label className="seller-sentence">
-                        Welcome back! You are selling {user.sold.length} books. Find more for yourself!
+                        Welcome back! You have made {user.sold.length} offers in history. Find more for yourself!
                     </label>
                 )
             default:
@@ -55,6 +55,7 @@ const Homepage = () => {
     useEffect(() => {
         userService.profile()
             .then(current => {
+                console.log(current)
                 if (current === 0){
                     setUser({role:"guest"})
                     setLoading(false)
@@ -87,7 +88,7 @@ const Homepage = () => {
 
         return (
             <div className="bg-pic">
-                <BasicComponentsWithoutSearchBar user={user.role}/>
+                <BasicComponentsWithoutSearchBar user={user}/>
                 <hr className="horizontal-line"/>
                 <div className="row">
                     {transfer(user.role)}

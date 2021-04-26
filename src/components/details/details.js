@@ -11,6 +11,8 @@ import UserLikes from "./user-likes";
 import userService from "../../services/user/users-service";
 import UserCommentArea from "./user-comment-area";
 import localBookService from "../../services/book/local-book-service"
+import SoldBooksList from "./selling-list";
+import offerService from "../../services/offer/offer-service";
 
 const Details = () => {
     const [book, setBook] = useState({
@@ -40,10 +42,17 @@ const Details = () => {
     const [user,setUser]=useState({});
     const [loading, setLoading] = useState(true);
     const [local, setLocal] =useState({});
+    const [offers,setOffers] = useState({});
+    const [selling, setSelling] = useState({});
     useEffect(() => {
             setLoading(true);
             bookService.findBookById(ID)
             .then(b => {setBook(b)
+                offerService.findOfferByID(ID)
+                    .then(response => {
+                        console.log(response)
+                        setSelling(response)
+                    })
                 userService.profile()
                     .then((u) => {
                             console.log(u)
@@ -53,6 +62,8 @@ const Details = () => {
                                     .then(r => {
                                         localBookService.findLocalBookById(ID)
                                             .then(localBook => {
+
+
                                                 setLocal(localBook)
                                                 setLoading(false)
                                             })
@@ -62,6 +73,8 @@ const Details = () => {
                                 userService.findUserByName(u.username)
                                     .then(currentUser => {
                                         setUser(currentUser)
+                                        offerService.findOfferByUsername(currentUser.username)
+                                            .then(o => setOffers(o))
                                         localBookService.createLocalBook(ID,b.volumeInfo.title)
                                             .then(r => {
                                                 localBookService.findLocalBookById(ID)
@@ -127,9 +140,11 @@ else {
                         </div>
 
                         <div className="detail-blocks">
-                            {user.role == "buyer" && <BuyUsedBooks item={local}/>}
+                            {user.role == "buyer" && <BuyUsedBooks offers = {selling}/>}
 
-                            {user.role == "seller" && <label className="RyCxoe"
+                            {user.role == "seller" &&
+                            <div>
+                            <label className="RyCxoe"
                                                              aria-level="3"
                                                              role="heading">
                                 I want to sell it!
@@ -139,7 +154,10 @@ else {
                                     </button>
                                 </Link>
 
-                            </label>}
+                            </label>
+                                <SoldBooksList user = {user}
+                                offers = {offers}/>
+                            </div>}
                             <br/>
                             <BuyNewBooks/>
                             <br/>

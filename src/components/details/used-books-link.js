@@ -4,10 +4,10 @@ import './details.css'
 import localBookService from "../../services/book/local-book-service"
 import offerService from "../../services/offer/offer-service"
 
-const BuyUsedBooks = ({item}) => {
-    const [book, setBook] = useState(item)
-    const {ID} = useParams()
-
+const BuyUsedBooks = ({offers}) => {
+    const [cachedOffers, setCachedOffers] = useState(offers)
+    // const {ID} = useParams()
+    console.log(cachedOffers)
     return(
         <>
             <div className="RyCxoe"
@@ -32,17 +32,16 @@ const BuyUsedBooks = ({item}) => {
 
                         <ul>
                             {
-                                book.selledBy && book.selledBy.map(user => {
+                                cachedOffers.map(offer => {
                                     return (
                                         <li>
-                                            <>
-                                            <Link to ={`/profile/${user.username}`}>
-                                                {user.username}
-                                            </Link>
+                                            <h4>
+                                                Seller:
+                                                {offer.soldBy}
                                             <span>&nbsp;&nbsp;</span>
-
-                                            {user.price}
-                                            </>
+                                                Price:
+                                            {offer.price}
+                                            </h4>
                                         </li>
                                     )
                                 })
