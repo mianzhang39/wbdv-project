@@ -1,10 +1,16 @@
 import React, {useEffect, useState} from "react";
 import './logo-slogan.css'
-import {Link, useParams} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import userService from "../../services/user/users-service"
 
 const NavigatorSignIn = () => {
-    const logout = () => userService.logout()
+    const history = useHistory()
+    const logout = () => {
+        userService.logout()
+            .then( r => {
+                console.log(r)
+                history.push("/")})
+    }
     const [role, setRole] = useState()
     // useEffect(() => {
     //     const interval=()=>{
@@ -45,7 +51,7 @@ const NavigatorSignIn = () => {
                     </li>
                     <li className="nav-item">
                         <a className="nav-link"
-                           href="/homepage"
+                           // href="/homepage"
                            onClick={() => {logout()} }>logout</a>
                     </li>
                 </ul>
